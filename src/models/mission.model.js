@@ -14,7 +14,11 @@ var missionSchema = new Schema({
         type: Schema.Types.Date,
         default: () => +new Date + 30*24*60*60*1000
     },
-    status: Schema.Types.number
+    status: Schema.Types.number,
+    participents: [{
+        type: Schema.Types.ObjectId, 
+        ref:'User'
+    }]
 
 });
 
