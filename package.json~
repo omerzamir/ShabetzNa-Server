@@ -1,0 +1,23 @@
+{
+  "name": "shabetz-na",
+  "version": "1.0.0",
+  "description": "ShabetzNa",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodecourse98/ShabetzNa.git"
+  },
+  "author": "Omer Zamir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nodecourse98/ShabetzNa/issues"
+  },
+  "homepage": "https://github.com/nodecourse98/ShabetzNa#readme",
+  "engines": {
+      "node": "6.11.2"
+  }
+
+}
