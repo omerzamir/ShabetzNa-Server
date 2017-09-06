@@ -5,10 +5,13 @@ var userSchema = new Schema({
     username: Schema.Types.String,
     name: Schema.Types.String,
     userspermissions: [Schema.Types.String],
-    pagespermissions: [Schema.Types.Number],
+    specialpermissions: [Schema.Types.Number],
     exemptions: [{
-        type: Schema.Types.ObjectId, 
-        ref:'MissionType'
+        exempt: {
+            type: Schema.Types.ObjectId, 
+            ref:'MissionType'
+        },
+        description: String
     }]
 });
 
