@@ -3,7 +3,7 @@ var config = {};
 config.deployment =  process.env.NODE_ENV || 'dev';
 
 config.dev = {
-    port: process.env.SERVER_PORT || 27017,
+    port: process.env.SERVER_PORT || 3001,
     dbName: 'sbnDB_dev',
     dbHost: 'localhost'
 };
