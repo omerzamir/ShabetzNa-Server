@@ -14,6 +14,5 @@ function dateValidity(date) {
 
 module.exports = {
     userValidity,
-    dateRangeValidity,
     dateValidity
 };
