@@ -55,6 +55,8 @@ function Delete(id) {
     return Constraint.remove({_id:id});
 }
 
+// There is no need for update for this model
+
 module.exports = {
     create,
     getByUser,
