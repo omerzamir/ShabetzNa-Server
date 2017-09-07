@@ -17,8 +17,15 @@ function getByUser(user) {
 
 function getByDateRange(fromDate, toDate) {
     if(ConstraintValidation.dateValidity(fromDate) && 
-        ConstraintValidation.dateValidity(toDate)) {
-            return Constraint.find({date: {'$gte': fromDate, '$lt': toDate}});
+       ConstraintValidation.dateValidity(toDate)) {
+        return Constraint.find({date: {'$gte': fromDate, '$lt': toDate}});
+    }
+    return null;
+}
+
+function getFromDate(fromDate) {
+    if(ConstraintValidation.dateValidity(fromDate)) {
+        return Constraint.find({date: {'$gte': fromDate}});
     }
     return null;
 }
@@ -26,5 +33,6 @@ function getByDateRange(fromDate, toDate) {
 module.exports = {
     create,
     getByUser,
-    getByDateRange
+    getByDateRange,
+    getFromDate
 };
