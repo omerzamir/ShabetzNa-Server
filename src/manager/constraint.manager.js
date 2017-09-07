@@ -16,6 +16,11 @@ function create(user, startDate, endDate) {
     return null;
 }
 
+function getByUser(user) {
+    return ConstraintValidation.userValidity(user) ? Constraint.findOne({user:user}): null;
+}
+
 module.exports = {
-    create
+    create,
+    getByUser
 };
