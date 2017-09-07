@@ -1,3 +1,4 @@
+var objectId = require('mongoose').Types.ObjectId;
 var missionType = require('../models/missiontype.model');
 var validator = require('validations/missionType.validator');
 
@@ -21,8 +22,37 @@ function getByType(type) {
     return missionType.find({type: type});
 }
 
+function getById(id) {
+    id = objectId.isValid(id) ? objectId(id) : null;
+
+    return missionType.findById(id);
+}
+
+function update(id, name, description, type) {
+
+    // Find the wanted missionType.
+    var missionType = getById(id);
+
+    // If something has changed update it, else put the previous data.
+    missionType.name = name ? name : missionType.name;
+    missionType.description = description ? description : missionType.description;
+    missionType.type = type ? type : missionType.type;
+
+    // Save it & return.
+    return missionType.save();
+}
+
+function DeleteById(id){
+    id = objectId.isValid(id) ? objectId(id) : null;
+    
+    return missionType.remove({_id:id});
+}
+
 module.exports = {
     create,
     getAll,
-    getByType
+    getByType,
+    getById,
+    update,
+    DeleteById
 };
