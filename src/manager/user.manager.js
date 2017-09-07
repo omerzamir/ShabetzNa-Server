@@ -18,3 +18,24 @@ function create(username, name, userspermissions, specialpermissions, exemptions
 
     return null;
 }
+
+function getByUserName(username){
+    
+    if (username){
+        return User.findOne({username:username});        
+    }
+
+    return null;
+}
+
+function getAll(){
+    return User.find();
+}
+
+
+
+module.exports = {
+    create,
+    getByUserName,
+    getAll
+};
