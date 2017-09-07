@@ -23,7 +23,7 @@ function getByType(type) {
 }
 
 function getById(id) {
-    id = objectId.isValid(id) ? objectId(id) : null;
+    var id = objectId.isValid(id) ? objectId(id) : null;
 
     return missionType.findById(id);
 }
@@ -42,8 +42,8 @@ function update(id, name, description, type) {
     return missionType.save();
 }
 
-function DeleteById(id){
-    id = objectId.isValid(id) ? objectId(id) : null;
+function Delete(id){
+    var id = objectId.isValid(id) ? objectId(id) : null;
     
     return missionType.remove({_id:id});
 }
@@ -54,5 +54,5 @@ module.exports = {
     getByType,
     getById,
     update,
-    DeleteById
+    Delete
 };
