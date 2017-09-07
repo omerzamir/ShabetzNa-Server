@@ -3,6 +3,7 @@ var User = require('../models/user.model');
 var UserValidation = require('validations/user.validator');
 
 function create(username, name, userspermissions, specialpermissions, exemptions) {
+    
     if(username && name){
 
         var newUser = User({
