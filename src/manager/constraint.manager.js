@@ -25,5 +25,6 @@ function getByDateRange(fromDate, toDate) {
 
 module.exports = {
     create,
-    getByUser
+    getByUser,
+    getByDateRange
 };
