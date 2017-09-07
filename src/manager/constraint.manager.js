@@ -16,8 +16,9 @@ function getByUser(user) {
 }
 
 function getByDateRange(fromDate, toDate) {
-    if(ConstraintValidation.dateValidity(fromDate) && ) {
-
+    if(ConstraintValidation.dateValidity(fromDate) && 
+        ConstraintValidation.dateValidity(toDate)) {
+            return Constraint.find({date: {'$gte': fromDate, '$lt': toDate}});
     }
     return null;
 }
