@@ -23,5 +23,6 @@ function getByType(type) {
 
 module.exports = {
     create,
-    getAll
+    getAll,
+    getByType
 };
