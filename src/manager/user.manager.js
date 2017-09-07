@@ -56,6 +56,10 @@ function UpdateExemptions(username, exemptions) {
     );
 }
 
+function Delete(username) {
+    return User.remove({username: username});
+}
+
 module.exports = {
     create,
     getByUserName,
