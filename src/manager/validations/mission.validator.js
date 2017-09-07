@@ -20,7 +20,7 @@ function participentsValidity(participents) {
     checked = [];
 
     participents.forEach(function(participent) {
-        if(objectId.isValid(participent)){
+        if(objectId.isValid(participent)) {
             checked.push(participent);
         }
     }, this);
