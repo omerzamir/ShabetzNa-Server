@@ -2,7 +2,7 @@ var objectId = require('mongoose').Types.ObjectId;
 var User = require('../models/user.model');
 var UserValidation = require('validations/user.validator');
 
-function create(username, name, userspermissions, specialpermissions, exemptions){
+function create(username, name, userspermissions, specialpermissions, exemptions) {
     if(username && name){
 
         var newUser = User({
@@ -19,7 +19,7 @@ function create(username, name, userspermissions, specialpermissions, exemptions
     return null;
 }
 
-function getByUserName(username){
+function getByUserName(username) {
     
     if (username){
         return User.findOne({username:username});        
@@ -32,10 +32,35 @@ function getAll(){
     return User.find();
 }
 
+function UpdateUserPermissions(username, userspermissions) {
 
+    return User.update(
+        {username: username}, 
+        {userspermissions: UserValidation.usersPermissionsVAlidity(userspermissions)}
+    );
+}
+
+function UpdateSpecialPermissions(username, specialpermissions) {
+    
+    return User.update(
+        {username: username}, 
+        {specialpermissions: UserValidation.specialpermissionsVAlidity(specialpermissions)}
+    );
+}
+
+function UpdateExemptions(username, exemptions) {
+    
+    return User.update(
+        {username: username}, 
+        {exemptions: UserValidation.exemptionsValidity(exemptions)}
+    );
+}
 
 module.exports = {
     create,
     getByUserName,
-    getAll
+    getAll,
+    UpdateUserPermissions,
+    UpdateSpecialPermissions,
+    UpdateExemptions
 };
