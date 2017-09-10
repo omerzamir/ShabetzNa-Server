@@ -57,8 +57,74 @@ function UpdateExemptions(username, exemptions) {
     );
 }
 
+function addUserPermission(username, userToAdd) {
+    var user = getByUserName(username);
+
+    if(objectId.isValid(userToAdd)){
+        user.userspermissions.push(userToAdd);
+        return user.save();
+    }
+
+    return null;
+}
+
+function addSpecialPermission(username, specialPermission) {
+    var user = getByUserName(username);
+
+    user.userspermissions.push(specialPermission);
+    
+    return user.save();
+}
+
+function addExempt(username, exempt) {
+    var user = getByUserName(username);
+
+    user.exemptions.push(exempt);
+
+    user.save();
+}
+
 function Delete(username) {
     return User.remove({username: username});
+}
+
+function removeExempt(username, exempt) {
+    return User.update(
+        {
+            username: username
+        },
+        {
+            $pull: {
+                exemptions : {'$in': [exempt]}
+            }
+        }
+    );
+}
+
+function removespecialPermission(username, specialPermission) {
+    return User.update(
+        {
+            username: username
+        },
+        {
+            $pull: {
+                specialpermissions : {'$in': [specialPermission]}
+            }
+        }
+    );
+}
+
+function removeUserPermission(username, userPermission) {
+    return User.update(
+        {
+            username: username
+        },
+        {
+            $pull: {
+                userspermissions : {'$in': [userPermission]}
+            }
+        }
+    );
 }
 
 module.exports = {
@@ -67,5 +133,11 @@ module.exports = {
     getAll,
     UpdateUserPermissions,
     UpdateSpecialPermissions,
-    UpdateExemptions
+    UpdateExemptions,
+    addUserPermission,
+    addSpecialPermission,
+    addExempt,
+    removeExempt,
+    removespecialPermission,
+    removeUserPermission
 };
