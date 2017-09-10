@@ -22,7 +22,6 @@ function updateMissionType(id, name, description, type) {
 
 function DeleteMissionTypeById(id) {
     return missionTypeManager.Delete(id);            
-    
 }
 
 module.exports = {
