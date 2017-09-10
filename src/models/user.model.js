@@ -4,7 +4,10 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
     username: Schema.Types.String,
     name: Schema.Types.String,
-    userspermissions: [Schema.Types.ObjectId],
+    userspermissions: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     specialpermissions: [Schema.Types.Number],
     exemptions: [{
         exempt: {
