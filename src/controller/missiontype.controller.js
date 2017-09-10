@@ -1,0 +1,1 @@
+var userManager = require('../manager/missiontype.manager');
