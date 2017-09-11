@@ -7,6 +7,10 @@ function createConstraint(user, date) {
     return constraintManager.create(userId, date);
 }
 
+function getAllConstraints() {
+    return constraintManager.getAll();
+}
+
 function getUserConstraints(user) {
     var userId = userController.getUserByUsername(user)._id;
     
@@ -21,13 +25,13 @@ function getConstraintsFromDate(fromDate) {
     return constraintManager.getFromDate(fromDate);
 }
 
-function getUserConstraintsByDateRange(fromDate, toDate, user) {
+function getUserConstraintsByDateRange(user, fromDate, toDate) {
     var userId = userController.getUserByUsername(user)._id;
 
     return constraintManager.getByUserDateRange(fromDate, toDate, userId);
 }
 
-function getUserConstraintsFromDate(fromDate, user) {
+function getUserConstraintsFromDate(user, fromDate) {
     var userId = userController.getUserByUsername(user)._id;
 
     return constraintManager.getUserFromDate(fromDate, userId);
@@ -43,6 +47,7 @@ function DeleteConstraint(id) {
 
 module.exports = {
     createConstraint,
+    getAllConstraints,
     getUserConstraints,
     getConstraintsByDateRange,
     getConstraintsFromDate,

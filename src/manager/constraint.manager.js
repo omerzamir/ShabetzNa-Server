@@ -10,6 +10,9 @@ function create(user, date) {
 
     return newConstraint.save();
 }
+function getAll() {
+    return Constraint.find();
+}
 
 function getByUser(user) {
     return ConstraintValidation.userValidity(user) ? Constraint.find({user:user}): null;
@@ -59,6 +62,7 @@ function Delete(id) {
 
 module.exports = {
     create,
+    getAll,
     getByUser,
     getByDateRange,
     getFromDate,
