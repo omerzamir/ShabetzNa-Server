@@ -17,7 +17,7 @@ function specialPermissionsValidity(specialPermissions){
     
     // Loop through the array and check it's validity.
     checked = [];
-    exemptions.forEach(function(specialPermission) {
+    specialPermissions.forEach(function(specialPermission) {
         if(!isNaN(specialPermissions)){
             checked.push(specialPermissions);
         }  

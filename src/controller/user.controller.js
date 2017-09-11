@@ -9,13 +9,14 @@ function createUser(
     specialpermissions, 
     exemptions
 ) {
-    return userManager.create(
-        username, 
-        name, 
-        userspermissions, 
-        specialpermissions, 
-        exemptions
-    );
+    var val;
+    try{
+    val = userManager.create(username, name, userspermissions, specialpermissions, exemptions);
+    } catch(e){
+        val = e;
+        console.log(e);
+    }
+    return val;
 }
 
 function getUserByUsername(username) {
