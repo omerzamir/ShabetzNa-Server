@@ -11,6 +11,10 @@ function CreateMission(type, startDate, endDate, status, participents) {
     return missionManager.create(type, startDate, endDate, status, sendParticipents);
 }
 
+function getAllMissions() {
+    return missionManager.getAll();
+}
+
 function getMissionByDateRange(fromDate, toDate) {
     return missionManager.getByDateRange(fromDate, toDate);
 }
@@ -55,6 +59,7 @@ function DeleteMission(mission) {
 
 module.exports = {
     CreateMission,
+    getAllMissions,
     getMissionByDateRange,
     getMissionByFromDate,
     getUserMissions,

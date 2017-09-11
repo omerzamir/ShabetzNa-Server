@@ -19,6 +19,10 @@ function create(type, startDate, endDate, status, participents){
     return null;
 }
 
+function getAll(){
+    return Mission.find();
+}
+
 function getByDateRange(fromDate, toDate) {
     //If the input is valid => Search
     if(MissionValidation.dateValidity(fromDate) && 
@@ -109,6 +113,7 @@ function Delete(id) {
 
 module.exports = {
     create,
+    getAll,
     getByDateRange,
     getFromDate,
     getByUser,
