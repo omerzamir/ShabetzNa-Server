@@ -68,8 +68,8 @@ function getByUserFromDate(user, fromDate) {
 }
 
 function updateDates(id, startDate, endDate) {
-    if(MissionValidation.dateValidity(startDate)&&
-        MissionValidation.dateValidity(endDate)&&
+    if(MissionValidation.dateValidity(startDate) &&
+        MissionValidation.dateValidity(endDate) &&
         MissionValidation.dateRangeValidity(startDate, endDate)){
         
         // Find the wanted mission.
