@@ -1,6 +1,6 @@
 var objectId = require('mongoose').Types.ObjectId;
 var User = require('../models/user.model');
-var UserValidation = require('validations/user.validator');
+var UserValidation = require('./validations/user.validator');
 
 function create(username, name, userspermissions, specialpermissions, exemptions) {
     
