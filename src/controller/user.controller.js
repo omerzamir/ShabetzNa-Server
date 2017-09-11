@@ -25,15 +25,15 @@ function getAllUsers() {
 }
 
 function updateAllUserPermission(username, userspermissions) {
-    return userManager.UpdateUserPermissions(userspermissions);
+    return userManager.UpdateUserPermissions(username, userspermissions);
 }
 
 function updateAllSpecialPermissions(username, specialpermissions) {
-    return userManager.UpdateSpecialPermissions(specialpermissions);
+    return userManager.UpdateSpecialPermissions(username, specialpermissions);
 }
 
 function updateAllExemptions(username, exemptions) {
-    return userManager.UpdateExemptions(exemptions);
+    return userManager.UpdateExemptions(username, exemptions);
 }
 
 function addUserPermission(username, usernameToAddName) {
