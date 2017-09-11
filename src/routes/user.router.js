@@ -11,11 +11,13 @@ router.get('/user/:userName', async function(req, res) {
 });
 
 router.post('/user', async function(req, res) {
-    res.json(await userController.createUser(req.body.username, 
-                                        req.body.name, 
-                                        req.body.userspermissions,
-                                        req.body.specialpermissions,
-                                        req.body.exemptions));
+    res.json(await userController.createUser(
+        req.body.username, 
+        req.body.name, 
+        req.body.userspermissions,
+        req.body.specialpermissions,
+        req.body.exemptions
+    ));
 });
 
 router.put('/user/permissions/user', async function(req, res) {

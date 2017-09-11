@@ -1,6 +1,6 @@
 var objectId = require('mongoose').Types.ObjectId;
 var missionType = require('../models/missiontype.model');
-var validator = require('validations/missionType.validator');
+var validator = require('./validations/missionType.validator');
 
 function create(name, description, type) {
     

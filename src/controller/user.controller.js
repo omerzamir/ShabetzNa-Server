@@ -1,5 +1,7 @@
 var userManager = require('../manager/user.manager');
 
+var User = require('../models/user.model');
+
 function createUser(
     username, 
     name, 

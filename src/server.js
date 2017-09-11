@@ -9,6 +9,8 @@ server.use(bodyParser.urlencoded({ extended: true }));
 
 apiRouter(server);
 
-mongoose.connect('mongodb://' + config.dbHost + '/' + config.dbName);
+mongoose.connect('mongodb://' + config.dbHost + '/' + config.dbName, {useMongoClient: true});
 
-server.listen(config.port);
+server.listen(config.port, function() {
+    console.log(`Server running on port ${config.port}`)
+});

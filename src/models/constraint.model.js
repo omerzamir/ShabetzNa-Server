@@ -12,6 +12,6 @@ var constraintSchema = new Schema({
     }
 });
 
-var Constraint = mongoose.model('MissionType', constraintSchema);
+var Constraint = mongoose.model('Constraint', constraintSchema);
 
 module.exports = Constraint;

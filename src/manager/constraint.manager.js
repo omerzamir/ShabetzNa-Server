@@ -1,6 +1,6 @@
 var objectId = require('mongoose').Types.ObjectId;
 var Constraint = require('../models/constraint.model');
-var ConstraintValidation = require('validations/constraint.validator');
+var ConstraintValidation = require('./validations/constraint.validator');
 
 function create(user, date) {
     var newConstraint = new Constraint({

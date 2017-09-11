@@ -1,6 +1,6 @@
 var objectId = require('mongoose').Types.ObjectId;
 var Mission = require('../models/mission.model');
-var MissionValidation = require('validations/mission.validator');
+var MissionValidation = require('./validations/mission.validator');
 
 function create(type, startDate, endDate, status, participents){
     

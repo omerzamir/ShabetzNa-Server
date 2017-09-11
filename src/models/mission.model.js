@@ -19,7 +19,6 @@ var missionSchema = new Schema({
         type: Schema.Types.ObjectId, 
         ref:'User'
     }]
-
 });
 
 var Mission = mongoose.model('Mission', missionSchema);
