@@ -45,10 +45,6 @@ function getUserFromDate(fromDate, user) {
     return null;
 }
 
-function getByUser(user) {
-    return Constraint.find({user:user});
-}
-
 function getById(id) {
     return Constraint.find({_id: id});
 }
@@ -68,7 +64,6 @@ module.exports = {
     getFromDate,
     getByUserDateRange,
     getUserFromDate,
-    getByUser,
     getById,
     Delete
 };
