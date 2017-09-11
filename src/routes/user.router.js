@@ -27,7 +27,6 @@ router.put('/user/permissions/user', async function(req, res) {
     ));
 });
 
-
 router.put('/user/permissions/special', async function(req, res) {
     res.json(await userController.updateAllSpecialPermissions(
         req.body.username,
