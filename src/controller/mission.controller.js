@@ -50,7 +50,7 @@ function ChangeMissionStatus(id, status) {
 }
 
 function AddParticipentToMission(id, participent) {
-    return missionManager.addParticipent(userController.getUserByUsername(participent)._id);
+    return missionManager.addParticipent(id,userController.getUserByUsername(participent)._id);
 }
 
 function DeleteMission(mission) {
