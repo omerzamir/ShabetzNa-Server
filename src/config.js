@@ -25,3 +25,4 @@ function changeDeployment(deployment){
 }
 
 module.exports = config[config.deployment];
+console.log("deployment", config.deployment);

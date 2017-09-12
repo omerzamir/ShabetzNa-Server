@@ -8,8 +8,8 @@ function create(username, name, userspermissions, specialpermissions, exemptions
         var newUser = User({
             username: username,
             name: name,
-            userspermissions: UserValidation.usersPermissionsVAlidity(userspermissions),
-            specialpermissions: UserValidation.specialPermissionsValidity(specialpermissions),
+            userspermissions: userspermissions,// UserValidation.usersPermissionsVAlidity(userspermissions),
+            specialpermissions: specialpermissions,//UserValidation.specialPermissionsValidity(specialpermissions),
             exemptions: UserValidation.exemptionsValidity(exemptions)
         });
         
