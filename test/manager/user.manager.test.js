@@ -16,6 +16,7 @@ var globalUser = {
         description: "some test description"
     }]
 };
+var replacedUsersPermissions = ["59b657e6ea1e962270ee9017", "59b65841ea1e962270ee9018", "59b7962636a244187d128e8a"]
 
 describe('user Manager', () => {
     before(async function(){
@@ -42,8 +43,8 @@ describe('user Manager', () => {
             let user = await userManager.create(
                 globalUser.username,
                 globalUser.name, 
-                globalUser.userspermissions, 
-                globalUser.specialpermissions, 
+                globalUser.userspermissions,
+                globalUser.specialpermissions,
                 globalUser.exemptions
             );
 
@@ -155,19 +156,16 @@ describe('user Manager', () => {
 
     describe('Update UserPermission', () => {
 
-        let replaced = globalUser.userspermissions;
-        replaced.push("59b7962636a244187d128e8a");
-
         it('Should be exported', () => {
             except(userManager.UpdateUserPermissions).to.be.a('function');
         });
 
         it('Should return a promise', () => {
-            let promise = userManager.UpdateUserPermissions(globalUser.username, replaced);
+            let promise = userManager.UpdateUserPermissions(globalUser.username, replacedUsersPermissions);
             except(promise.then).to.be.a('function');
         });
 
-        it('Should return the user that is now inserted', async () => {
+        it('Should return expected values if updated', async () => {
             
             // Create User
             await userManager.create(
@@ -178,14 +176,44 @@ describe('user Manager', () => {
                 globalUser.exemptions
             );
 
-            let updated = await userManager.UpdateUserPermissions(globalUser.username, replaced);
+            let updated = await userManager.UpdateUserPermissions(globalUser.username, replacedUsersPermissions);
             except(updated.ok).to.be.equal(1);
             except(updated.n).to.be.equal(1);
             except(updated.nModified).to.be.equal(1);
         });
     });
 
-    
 
+    describe('Update specialPermission', () => {
+        
+                let replaced = globalUser.specialpermissions;
+                replaced.push(2);
+        
+                it('Should be exported', () => {
+                    except(userManager.UpdateSpecialPermissions).to.be.a('function');
+                });
+        
+                it('Should return a promise', () => {
+                    let promise = userManager.UpdateSpecialPermissions(globalUser.username, replaced);
+                    except(promise.then).to.be.a('function');
+                });
+        
+                it('Should return expected values if updated', async () => {
+                    
+                    // Create User
+                    await userManager.create(
+                        globalUser.username,
+                        globalUser.name,
+                        globalUser.userspermissions,
+                        globalUser.specialpermissions,
+                        globalUser.exemptions
+                    );
+        
+                    let updated = await userManager.UpdateSpecialPermissions(globalUser.username, replaced);
+                    except(updated.ok).to.be.equal(1);
+                    except(updated.n).to.be.equal(1);
+                    except(updated.nModified).to.be.equal(1);
+                });
+            });
 
 });

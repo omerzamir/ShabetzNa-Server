@@ -14,25 +14,21 @@ function exemptionsValidity(exemptions){
 }
 
 function specialPermissionsValidity(specialPermissions){
-    
     // Loop through the array and check it's validity.
     checked = [];
-    specialPermissions.forEach(function(specialPermission) {
-        if(!isNaN(specialPermissions)){
-            checked.push(specialPermissions);
-        }  
+    specialPermissions.forEach(function(permission) {   
+        checked.push(Number(permission));    
     }, this);
 
     return checked;
 }
 
-function usersPermissionsVAlidity(usersPermissions){
-
+function usersPermissionsValidity(usersPermissions){
     // Loop through the array and check it's validity.
     checked = [];
-    usersPermissions.forEach(function(usersPermission) {
-        if(objectId.isValid(usersPermissions)){
-            checked.push(usersPermissions);
+    usersPermissions.forEach(function(userPermission) {
+        if(objectId.isValid(userPermission)){
+            checked.push(userPermission);
         }  
     }, this);
 
@@ -42,5 +38,5 @@ function usersPermissionsVAlidity(usersPermissions){
 module.exports = {
     exemptionsValidity,
     specialPermissionsValidity,
-    usersPermissionsVAlidity
+    usersPermissionsValidity
 };

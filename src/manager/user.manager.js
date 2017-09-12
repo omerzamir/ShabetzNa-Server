@@ -8,8 +8,8 @@ function create(username, name, userspermissions, specialpermissions, exemptions
         var newUser = User({
             username: username,
             name: name,
-            userspermissions: userspermissions,// UserValidation.usersPermissionsVAlidity(userspermissions),
-            specialpermissions: specialpermissions,//UserValidation.specialPermissionsValidity(specialpermissions),
+            userspermissions: UserValidation.usersPermissionsValidity(userspermissions),
+            specialpermissions: UserValidation.specialPermissionsValidity(specialpermissions),
             exemptions: UserValidation.exemptionsValidity(exemptions)
         });
         
@@ -36,7 +36,7 @@ function UpdateUserPermissions(username, userspermissions) {
 
     return User.update(
         {username: username}, 
-        {userspermissions: UserValidation.usersPermissionsVAlidity(userspermissions)}
+        {userspermissions: UserValidation.usersPermissionsValidity(userspermissions)}
     );
 }
 
@@ -44,7 +44,7 @@ function UpdateSpecialPermissions(username, specialpermissions) {
     
     return User.update(
         {username: username}, 
-        {specialpermissions: UserValidation.specialpermissionsVAlidity(specialpermissions)}
+        {specialpermissions: UserValidation.specialPermissionsValidity(specialpermissions)}
     );
 }
 
