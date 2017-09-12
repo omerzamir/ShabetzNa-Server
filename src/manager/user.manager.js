@@ -66,12 +66,12 @@ async function addUserPermission(username, userToAdd) {
     return null;
 }
 
-function addSpecialPermission(username, specialPermission) {
-    var user = getByUserName(username);
+async function addSpecialPermission(username, specialPermission) {
+    var user = await getByUserName(username);
 
-    user.userspermissions.push(specialPermission);
+    user.specialpermissions.push(specialPermission);
 
-    return user.save();
+    return await user.save();
 }
 
 function addExempt(username, exempt) {

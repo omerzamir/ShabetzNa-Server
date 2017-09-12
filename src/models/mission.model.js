@@ -14,11 +14,17 @@ var missionSchema = new Schema({
         type: Schema.Types.Date,
         default: () => +new Date + 30*24*60*60*1000
     },
-    status: Schema.Types.Number,
-    participents: [{
-        type: Schema.Types.ObjectId, 
-        ref:'User'
-    }]
+    status: {
+        type: Schema.Types.Number,
+        default: 0
+    },
+    participents: {
+        type: [{
+            type: Schema.Types.ObjectId, 
+            ref:'User'
+        }],
+        default: []
+    }
 });
 
 var Mission = mongoose.model('Mission', missionSchema);

@@ -240,4 +240,20 @@ describe('user Manager', () => {
             except(updated.userspermissions).to.deep.include(id);
         });
     });
+
+    describe('Add a Special Permission', () => {
+
+        it('Should be exported', () => {
+            except(userManager.addSpecialPermission).to.be.a('function');
+        });
+
+        it('Should return a promise', () => {
+            let promise = userManager.addSpecialPermission(globalUser.username, 0);
+            except(promise.then).to.be.a('function');
+        });
+        it('Should return expected values if updated', async () => {  
+            let updated = await userManager.addSpecialPermission(globalUser.username, 0);
+            except(updated.specialpermissions).to.deep.include(0);
+        });
+    });
 });

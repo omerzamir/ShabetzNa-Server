@@ -2,9 +2,18 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var missionTypeSchema = new Schema({
-    name: Schema.Types.String,
-    description: Schema.Types.String,
-    type: Schema.Types.Number
+    name: {
+        type: Schema.Types.String,
+        default: ""
+    },
+    description: {
+        type: Schema.Types.String,
+        default: ""
+    },
+    type: {
+        type:Schema.Types.Number,
+        default: 0
+    }
 });
 
 var MissionType = mongoose.model('MissionType', missionTypeSchema);
