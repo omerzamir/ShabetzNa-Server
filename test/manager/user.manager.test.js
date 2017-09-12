@@ -60,6 +60,69 @@ describe('user Manager', () => {
             except(exemtions).to.deep.equal(globalUser.exemptions);            
         });
 
-        
+        it('Should return null if there is no username or name', async() => {
+            
+            // Undefined Case
+            let userUndefined = await userManager.create(
+                undefined,
+                undefined, 
+                globalUser.userspermissions, 
+                globalUser.specialpermissions, 
+                globalUser.exemptions
+            );
+            except(userUndefined).to.be.null;
+            
+            // Null Case
+            let userNull = await userManager.create(
+                null,
+                null, 
+                globalUser.userspermissions, 
+                globalUser.specialpermissions, 
+                globalUser.exemptions
+            );
+            except(userNull).to.be.null;
+        });
     });
+
+    describe('Get All Users', () => {
+        it('Should be exported', () => {
+            except(userManager.getAll).to.be.a('function');
+        });
+
+        it('Should return a promise', () => {
+            let promise = userManager.getAll();
+            except(promise.then).to.be.a('function');
+        });
+
+        it('Should return TWO Users that are now inserted', async () => {
+            // Empty the collection.
+            await mongoose.connection.db.dropCollection(collectionName);
+            
+            // Create Two Users
+            await userManager.create(
+                globalUser.username,
+                globalUser.name, 
+                globalUser.userspermissions, 
+                globalUser.specialpermissions, 
+                globalUser.exemptions
+            );
+
+            await userManager.create(
+                globalUser.username + " 2 ",
+                globalUser.name + " 2 ",
+                globalUser.userspermissions,
+                globalUser.specialpermissions,
+                globalUser.exemptions
+            );
+
+            var users = await userManager.getAll();
+
+            except(users.length).to.equal(2);
+            except(users[0]).to.have.property("_id");
+            except(users[1]).to.have.property("_id");
+        });
+    });
+
+    
+
 });
