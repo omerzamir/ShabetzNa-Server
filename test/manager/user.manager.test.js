@@ -171,15 +171,6 @@ describe('user Manager', () => {
         });
 
         it('Should return expected values if updated', async () => {
-            
-            // Create User
-            await userManager.create(
-                globalUser.username,
-                globalUser.name,
-                globalUser.userspermissions,
-                globalUser.specialpermissions,
-                globalUser.exemptions
-            );
 
             let updated = await userManager.UpdateUserPermissions(globalUser.username, replacedUsersPermissions);
             except(updated.ok).to.be.equal(1);
@@ -201,15 +192,6 @@ describe('user Manager', () => {
         });
 
         it('Should return expected values if updated', async () => {
-            
-            // Create User
-            await userManager.create(
-                globalUser.username,
-                globalUser.name,
-                globalUser.userspermissions,
-                globalUser.specialpermissions,
-                globalUser.exemptions
-            );
 
             let updated = await userManager.UpdateSpecialPermissions(globalUser.username, replacedSpecialPermissions);
             except(updated.ok).to.be.equal(1);
@@ -230,15 +212,6 @@ describe('user Manager', () => {
         });
 
         it('Should return expected values if updated', async () => {
-            
-            // Create User
-            await userManager.create(
-                globalUser.username,
-                globalUser.name,
-                globalUser.userspermissions,
-                globalUser.specialpermissions,
-                globalUser.exemptions
-            );
 
             let updated = await userManager.UpdateExemptions(globalUser.username, replacedExemptions);
             except(updated.ok).to.be.equal(1);
@@ -247,5 +220,21 @@ describe('user Manager', () => {
         });
     });
 
-    
+    describe('Add a User Permission', () => {
+        var id;
+        before(async function(){
+            id = await userManager.getByUserName(globalUser.username);
+            id = id._id;
+        });
+        
+        it('Should be exported', () => {
+            except(userManager.addUserPermission).to.be.a('function');
+        });
+
+        it('Should return a promise', () => {
+            let promise = userManager.addUserPermission(globalUser.username, id);
+            except(promise.then).to.be.a('function');
+        });
+        
+    });
 });

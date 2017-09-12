@@ -4,7 +4,7 @@ var UserValidation = require('./validations/user.validator');
 
 function create(username, name, userspermissions, specialpermissions, exemptions) {
 
-    if(username && name){
+    if (username && name) {
         var newUser = User({
             username: username,
             name: name,
@@ -12,7 +12,7 @@ function create(username, name, userspermissions, specialpermissions, exemptions
             specialpermissions: UserValidation.specialPermissionsValidity(specialpermissions),
             exemptions: UserValidation.exemptionsValidity(exemptions)
         });
-        
+
         return newUser.save();
     }
 
@@ -20,50 +20,49 @@ function create(username, name, userspermissions, specialpermissions, exemptions
 }
 
 function getByUserName(username) {
-    
-    if (username){
-        return User.findOne({username:username});        
-    }
+    return User.findOne({
+        username: username
+    });
 
-    return null;
 }
 
-function getAll(){
+function getAll() {
     return User.find();
 }
 
 function UpdateUserPermissions(username, userspermissions) {
 
-    return User.update(
-        {username: username}, 
-        {userspermissions: UserValidation.usersPermissionsValidity(userspermissions)}
-    );
+    return User.update({
+        username: username
+    }, {
+        userspermissions: UserValidation.usersPermissionsValidity(userspermissions)
+    });
 }
 
 function UpdateSpecialPermissions(username, specialpermissions) {
-    
-    return User.update(
-        {username: username}, 
-        {specialpermissions: UserValidation.specialPermissionsValidity(specialpermissions)}
-    );
+
+    return User.update({
+        username: username
+    }, {
+        specialpermissions: UserValidation.specialPermissionsValidity(specialpermissions)
+    });
 }
 
 function UpdateExemptions(username, exemptions) {
-    
-    return User.update(
-        {username: username}, 
-        {exemptions: UserValidation.exemptionsValidity(exemptions)}
-    );
+
+    return User.update({
+        username: username
+    }, {
+        exemptions: UserValidation.exemptionsValidity(exemptions)
+    });
 }
 
-function addUserPermission(username, userToAdd) {
-    var user = getByUserName(username);
-
-    if(objectId.isValid(userToAdd)){
+async function addUserPermission(username, userToAdd) {
+    var user = await getByUserName(username);
+    if (objectId.isValid(userToAdd)) {
         user.userspermissions.push(userToAdd);
-        return user.save();
+        return await user.save();
     }
-
     return null;
 }
 
@@ -71,7 +70,7 @@ function addSpecialPermission(username, specialPermission) {
     var user = getByUserName(username);
 
     user.userspermissions.push(specialPermission);
-    
+
     return user.save();
 }
 
@@ -84,46 +83,45 @@ function addExempt(username, exempt) {
 }
 
 function Delete(username) {
-    return User.remove({username: username});
+    return User.remove({
+        username: username
+    });
 }
 
 function removeExempt(username, exempt) {
-    return User.update(
-        {
-            username: username
-        },
-        {
-            $pull: {
-                exemptions : {'$in': [exempt]}
+    return User.update({
+        username: username
+    }, {
+        $pull: {
+            exemptions: {
+                '$in': [exempt]
             }
         }
-    );
+    });
 }
 
 function removespecialPermission(username, specialPermission) {
-    return User.update(
-        {
-            username: username
-        },
-        {
-            $pull: {
-                specialpermissions : {'$in': [specialPermission]}
+    return User.update({
+        username: username
+    }, {
+        $pull: {
+            specialpermissions: {
+                '$in': [specialPermission]
             }
         }
-    );
+    });
 }
 
 function removeUserPermission(username, userPermission) {
-    return User.update(
-        {
-            username: username
-        },
-        {
-            $pull: {
-                userspermissions : {'$in': [userPermission]}
+    return User.update({
+        username: username
+    }, {
+        $pull: {
+            userspermissions: {
+                '$in': [userPermission]
             }
         }
-    );
+    });
 }
 
 module.exports = {
