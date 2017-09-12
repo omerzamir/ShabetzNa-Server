@@ -148,8 +148,44 @@ describe('user Manager', () => {
 
             var user = await userManager.getByUserName(globalUser.username);
 
-            except(user.username).to.equal(globalUser.username);
+            except(user.username).to.deep.equal(globalUser.username);
         });
     });
+
+
+    describe('Update UserPermission', () => {
+
+        let replaced = globalUser.userspermissions;
+        replaced.push("59b7962636a244187d128e8a");
+
+        it('Should be exported', () => {
+            except(userManager.UpdateUserPermissions).to.be.a('function');
+        });
+
+        it('Should return a promise', () => {
+            let promise = userManager.UpdateUserPermissions(globalUser.username, replaced);
+            except(promise.then).to.be.a('function');
+        });
+
+        it('Should return the user that is now inserted', async () => {
+            
+            // Create User
+            await userManager.create(
+                globalUser.username,
+                globalUser.name,
+                globalUser.userspermissions,
+                globalUser.specialpermissions,
+                globalUser.exemptions
+            );
+
+            let updated = await userManager.UpdateUserPermissions(globalUser.username, replaced);
+            except(updated.ok).to.be.equal(1);
+            except(updated.n).to.be.equal(1);
+            except(updated.nModified).to.be.equal(1);
+        });
+    });
+
+    
+
 
 });
