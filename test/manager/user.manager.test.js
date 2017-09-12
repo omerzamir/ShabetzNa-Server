@@ -256,4 +256,20 @@ describe('user Manager', () => {
             except(updated.specialpermissions).to.deep.include(0);
         });
     });
+
+    describe('Add an Exempt', () => {
+        
+                it('Should be exported', () => {
+                    except(userManager.addExempt).to.be.a('function');
+                });
+        
+                it('Should return a promise', () => {
+                    let promise = userManager.addExempt(globalUser.username, globalUser.exemptions[0]);
+                    except(promise.then).to.be.a('function');
+                });
+                it('Should return expected values if updated', async () => {  
+                    let updated = await userManager.addExempt(globalUser.username, globalUser.exemptions[0]);
+                    except(updated.exemptions.map((e)=>e.exempt.toString())).to.deep.include(globalUser.exemptions[0].exempt);
+                });
+            });
 });

@@ -74,12 +74,12 @@ async function addSpecialPermission(username, specialPermission) {
     return await user.save();
 }
 
-function addExempt(username, exempt) {
-    var user = getByUserName(username);
+async function addExempt(username, exempt) {
+    var user = await getByUserName(username);
 
     user.exemptions.push(exempt);
 
-    user.save();
+    return await user.save();
 }
 
 function Delete(username) {
