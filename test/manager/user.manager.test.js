@@ -123,6 +123,33 @@ describe('user Manager', () => {
         });
     });
 
-    
+    describe('Get User By UserName', () => {
+        it('Should be exported', () => {
+            except(userManager.getByUserName).to.be.a('function');
+        });
+
+        it('Should return a promise', () => {
+            let promise = userManager.getByUserName(globalUser.username);
+            except(promise.then).to.be.a('function');
+        });
+
+        it('Should return the user that is now inserted', async () => {
+            // Empty the collection.
+            await mongoose.connection.db.dropCollection(collectionName);
+            
+            // Create Two Users
+            await userManager.create(
+                globalUser.username,
+                globalUser.name, 
+                globalUser.userspermissions, 
+                globalUser.specialpermissions, 
+                globalUser.exemptions
+            );
+
+            var user = await userManager.getByUserName(globalUser.username);
+
+            except(user.username).to.equal(globalUser.username);
+        });
+    });
 
 });
