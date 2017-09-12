@@ -59,5 +59,7 @@ describe('user Manager', () => {
             });
             except(exemtions).to.deep.equal(globalUser.exemptions);            
         });
+
+        
     });
 });
