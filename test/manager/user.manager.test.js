@@ -258,18 +258,88 @@ describe('user Manager', () => {
     });
 
     describe('Add an Exempt', () => {
-        
-                it('Should be exported', () => {
-                    except(userManager.addExempt).to.be.a('function');
-                });
-        
-                it('Should return a promise', () => {
-                    let promise = userManager.addExempt(globalUser.username, globalUser.exemptions[0]);
-                    except(promise.then).to.be.a('function');
-                });
-                it('Should return expected values if updated', async () => {  
-                    let updated = await userManager.addExempt(globalUser.username, globalUser.exemptions[0]);
-                    except(updated.exemptions.map((e)=>e.exempt.toString())).to.deep.include(globalUser.exemptions[0].exempt);
-                });
-            });
+        it('Should be exported', () => {
+            except(userManager.addExempt).to.be.a('function');
+        });
+
+        it('Should return a promise', () => {
+            let promise = userManager.addExempt(globalUser.username, globalUser.exemptions[0]);
+            except(promise.then).to.be.a('function');
+        });
+        it('Should return expected values if updated', async () => {  
+            let updated = await userManager.addExempt(globalUser.username, globalUser.exemptions[0]);
+            except(updated.exemptions.map((e)=>e.exempt.toString())).to.deep.include(globalUser.exemptions[0].exempt);
+        });
+    });
+
+    describe('Remove an Exempt', () => {
+        it('Should be exported', () => {
+            except(userManager.removeExempt).to.be.a('function');
+        });
+
+        it('Should return a promise', () => {
+            let promise = userManager.removeExempt(globalUser.username, globalUser.exemptions[0]);
+            except(promise.then).to.be.a('function');
+        });
+        it('Should return expected values if updated', async () => {  
+            let updated = await userManager.removeExempt(globalUser.username, replacedExemptions[0]);
+
+            except(updated.ok).to.be.equal(1);
+            except(updated.n).to.be.equal(1);
+            except(updated.nModified).to.be.equal(1);
+        });
+    });
+
+    describe('Remove a Special Permission', () => {
+        it('Should be exported', () => {
+            except(userManager.removespecialPermission).to.be.a('function');
+        });
+
+        it('Should return a promise', () => {
+            let promise = userManager.removespecialPermission(globalUser.username, 0);
+            except(promise.then).to.be.a('function');
+        });
+        it('Should return expected values if updated', async () => {  
+            let updated = await userManager.removespecialPermission(globalUser.username, 1);
+
+            except(updated.ok).to.be.equal(1);
+            except(updated.n).to.be.equal(1);
+            except(updated.nModified).to.be.equal(1);
+        });
+    });
+
+    describe('Remove a User Permission', () => {
+        it('Should be exported', () => {
+            except(userManager.removeUserPermission).to.be.a('function');
+        });
+
+        it('Should return a promise', () => {
+            let promise = userManager.removeUserPermission(globalUser.username, "59b657e6ea1e962270ee9017");
+            except(promise.then).to.be.a('function');
+        });
+        it('Should return expected values if updated', async () => {  
+            let updated = await userManager.removeUserPermission(globalUser.username, "59b65841ea1e962270ee9018");
+
+            except(updated.ok).to.be.equal(1);
+            except(updated.n).to.be.equal(1);
+            except(updated.nModified).to.be.equal(1);
+        });
+    });
+
+    describe('Delete a User', () => {
+        it('Should be exported', () => {
+            except(userManager.Delete).to.be.a('function');
+        });
+
+        it('Should return a promise', () => {
+            let promise = userManager.Delete(globalUser.username);
+            except(promise.then).to.be.a('function');
+        });
+        it('Should return expected values if updated', async () => {  
+            let res = await userManager.Delete(globalUser.username);
+
+            except(res.result.ok).to.be.equal(1);
+            except(res.result.n).to.be.equal(0);
+        });
+    });
 });

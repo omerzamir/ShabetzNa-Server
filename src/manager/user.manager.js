@@ -118,8 +118,8 @@ function removeUserPermission(username, userPermission) {
     });
 }
 
-function Delete(username) {
-    return User.remove({
+async function Delete(username) {
+    return await User.remove({
         username: username
     });
 }
