@@ -82,12 +82,6 @@ async function addExempt(username, exempt) {
     return await user.save();
 }
 
-function Delete(username) {
-    return User.remove({
-        username: username
-    });
-}
-
 function removeExempt(username, exempt) {
     return User.update({
         username: username
@@ -124,6 +118,12 @@ function removeUserPermission(username, userPermission) {
     });
 }
 
+function Delete(username) {
+    return User.remove({
+        username: username
+    });
+}
+
 module.exports = {
     create,
     getByUserName,
@@ -136,5 +136,6 @@ module.exports = {
     addExempt,
     removeExempt,
     removespecialPermission,
-    removeUserPermission
+    removeUserPermission,
+    Delete
 };
