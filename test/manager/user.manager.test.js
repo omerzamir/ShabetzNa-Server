@@ -235,6 +235,9 @@ describe('user Manager', () => {
             let promise = userManager.addUserPermission(globalUser.username, id);
             except(promise.then).to.be.a('function');
         });
-        
+        it('Should return expected values if updated', async () => {  
+            let updated = await userManager.addUserPermission(globalUser.username, id);
+            except(updated.userspermissions).to.deep.include(id);
+        });
     });
 });
