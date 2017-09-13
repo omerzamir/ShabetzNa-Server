@@ -10,8 +10,8 @@ var collectionName = 'missions';
 // Global Mission
 var globalMission = {
     type:"",
-    startDate: new Date(),
-    endDate: new Date(new Date()+5550),
+    startDate: new Date(2017, 1, 1),
+    endDate: new Date(2017, 1, 2),
     status: 0,
     participents: []
 };
@@ -92,7 +92,6 @@ describe('Mission Manager', () => {
                 globalMission.participents
             );
 
-
             let missions = await missionManager.getAll();
 
             except(missions.length).to.equal(2);
@@ -101,6 +100,144 @@ describe('Mission Manager', () => {
         });
     });
 
-    
+    describe('Get missions by date range', () => {
+        it('Should be exported', () => {
+            except(missionManager.getByDateRange).to.be.a('function');
+        });
+        it('Should return a promise', () => {
+            let promise = missionManager.getByDateRange("","");
+            except(promise.then).to.be.a('function');
+        });
+
+        it('Should return Two missions', async () => {
+
+            await mongoose.connection.db.dropCollection(collectionName);
+            
+            await missionManager.create(
+                globalMission.type,
+                globalMission.startDate,
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );
+            await missionManager.create(
+                globalMission.type,
+                new Date(2017,1,5),
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );
+
+
+            let missions = await missionManager.getByDateRange(globalMission.startDate,globalMission.endDate);
+            except(missions.length).to.equal(1);
+            except(missions[0].startDate).is.gte(globalMission.startDate);    
+        });
+    });
+
+    describe('Get missions from specific date', () => {
+        it('Should be exported', () => {
+            except(missionManager.getFromDate).to.be.a('function');
+        });
+        it('Should return a promise', () => {
+            let promise = missionManager.getFromDate("");
+            except(promise.then).to.be.a('function');
+        });
+
+        it('Should return Two missions', async () => {
+
+            await mongoose.connection.db.dropCollection(collectionName);
+            
+            await missionManager.create(
+                globalMission.type,
+                globalMission.startDate,
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );
+            await missionManager.create(
+                globalMission.type,
+                new Date(2016, 1, 1),
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );
+
+
+            let missions = await missionManager.getFromDate(globalMission.startDate);
+            except(missions.length).to.equal(1);
+            except(missions[0].startDate).is.gte(globalMission.startDate);        
+        });
+    });
+
+    describe('Get missions Of A Chosen User', () => {
+        it('Should be exported', () => {
+            except(missionManager.getByUser).to.be.a('function');
+        });
+        it('Should return a promise', () => {
+            let promise = missionManager.getByUser("");
+            except(promise.then).to.be.a('function');
+        });
+
+        it('Should return Two missions', async () => {
+
+            await mongoose.connection.db.dropCollection(collectionName);
+            
+            await missionManager.create(
+                globalMission.type,
+                globalMission.startDate,
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );
+            await missionManager.create(
+                globalMission.type,
+                new Date(2016, 1, 1),
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );
+
+            let missions = await missionManager.getByUser(globalMission.participents[0]);
+            except(missions.length).to.equal(2);
+            except(missions[0].participents).is.deep.contains(globalMission.participents[0]);
+            except(missions[1].participents).is.deep.contains(globalMission.participents[0]);
+        });
+    });
+
+    describe('Get missions Of A Chosen User', () => {
+        it('Should be exported', () => {
+            except(missionManager.getByUserDateRange).to.be.a('function');
+        });
+        it('Should return a promise', () => {
+            let promise = missionManager.getByUserDateRange("", new Date(), new Date());
+            except(promise.then).to.be.a('function');
+        });
+
+        it('Should return Two missions', async () => {
+
+            await mongoose.connection.db.dropCollection(collectionName);
+            
+            await missionManager.create(
+                globalMission.type,
+                globalMission.startDate,
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );
+            await missionManager.create(
+                globalMission.type,
+                new Date(2016, 1, 1),
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );
+
+            let missions = await missionManager.getByUserDateRange(globalMission.participents[0], globalMission.startDate, globalMission.endDate);
+            except(missions.length).to.equal(1);
+            except(missions[0].participents).is.deep.contains(globalMission.participents[0]);
+            except(missions[0].startDate).is.gte(globalMission.startDate);                    
+        });
+    });
 
 });

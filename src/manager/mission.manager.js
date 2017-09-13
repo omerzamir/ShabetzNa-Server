@@ -22,12 +22,12 @@ function getAll(){
     return Mission.find({});
 }
 
-function getByDateRange(fromDate, toDate) {
+async function getByDateRange(fromDate, toDate) {
     //If the input is valid => Search
     if(MissionValidation.dateValidity(fromDate) && 
         MissionValidation.dateValidity(toDate)&&
-        MissionValidation.dateRangeValidity(startDate, endDate)) {
-        
+        MissionValidation.dateRangeValidity(fromDate, toDate)) {
+
         return Mission.find({startDate: {'$gte': fromDate, '$lte': toDate}});
     }
 
@@ -44,27 +44,21 @@ function getFromDate(fromDate) {
 
 function getByUser(user) {
     return Mission.find({
-        participents: {
-            $elemMatch: {'$eq': user}
-        }
+        participents: {'$in': [user]}
     });
 }
 
 function getByUserDateRange(user, fromDate, toDate) {
     return Mission.find({
-        participents: {
-            $elemMatch: {'$eq': user}
-        },
-        startDate: {'$gte': fromDate, '$lte': toDate}
+        participents: { '$in': [user] },
+        startDate: { '$gte': fromDate, '$lte': toDate }
     });
 }
 
 function getByUserFromDate(user, fromDate) {
     if(MissionValidation.dateValidity(fromDate)){
         return Mission.find({
-            participents: {
-                $elemMatch: {'$eq': user}
-            },
+            participents: { '$in': [user] },
             startDate: {'$gte': fromDate}
         });
     }
