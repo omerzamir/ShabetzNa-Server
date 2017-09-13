@@ -205,7 +205,7 @@ describe('Mission Manager', () => {
         });
     });
 
-    describe('Get missions Of A Chosen User', () => {
+    describe('Get missions Of A Chosen User and Date Range', () => {
         it('Should be exported', () => {
             except(missionManager.getByUserDateRange).to.be.a('function');
         });
@@ -214,7 +214,7 @@ describe('Mission Manager', () => {
             except(promise.then).to.be.a('function');
         });
 
-        it('Should return Two missions', async () => {
+        it('Should return One missions', async () => {
 
             await mongoose.connection.db.dropCollection(collectionName);
             
@@ -239,5 +239,5 @@ describe('Mission Manager', () => {
             except(missions[0].startDate).is.gte(globalMission.startDate);                    
         });
     });
-
+    
 });
