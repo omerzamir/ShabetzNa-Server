@@ -28,18 +28,21 @@ function getById(id) {
     return missionType.findById(id);
 }
 
-function update(id, name, description, type) {
+async function update(id, name, description, type) {
 
     // Find the wanted missionType.
-    var missionType = getById(id);
+    var missionType = await getById(id);
 
-    // If something has changed update it, else put the previous data.
-    missionType.name = name ? name : missionType.name;
-    missionType.description = description ? description : missionType.description;
-    missionType.type = type ? type : missionType.type;
-
-    // Save it & return.
-    return missionType.save();
+    if(missionType){
+        // If something has changed update it, else put the previous data.
+        missionType.name = name ? name : missionType.name;
+        missionType.description = description ? description : missionType.description;
+        missionType.type = type ? type : missionType.type;
+        
+        // Save it & return.
+        return missionType.save();
+    }
+    return null;
 }
 
 function Delete(id){

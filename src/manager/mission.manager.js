@@ -3,7 +3,6 @@ var Mission = require('../models/mission.model');
 var MissionValidation = require('./validations/mission.validator');
 
 function create(type, startDate, endDate, status, participents){
-    
     if(MissionValidation.dateRangeValidity(startDate, endDate)){
         
         var newMission = new Mission({
@@ -20,7 +19,7 @@ function create(type, startDate, endDate, status, participents){
 }
 
 function getAll(){
-    return Mission.find();
+    return Mission.find({});
 }
 
 function getByDateRange(fromDate, toDate) {
