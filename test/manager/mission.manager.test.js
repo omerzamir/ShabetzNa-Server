@@ -240,4 +240,41 @@ describe('Mission Manager', () => {
         });
     });
     
+    describe('Get missions Of A Chosen User and From Date', () => {
+        it('Should be exported', () => {
+            except(missionManager.getByUserFromDate).to.be.a('function');
+        });
+        it('Should return a promise', () => {
+            let promise = missionManager.getByUserFromDate("", new Date());
+            except(promise.then).to.be.a('function');
+        });
+
+        it('Should return One missions', async () => {
+
+            await mongoose.connection.db.dropCollection(collectionName);
+            
+            await missionManager.create(
+                globalMission.type,
+                globalMission.startDate,
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );
+            await missionManager.create(
+                globalMission.type,
+                new Date(2016, 1, 1),
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );
+
+            let missions = await missionManager.getByUserFromDate(globalMission.participents[0], globalMission.startDate);
+            except(missions.length).to.equal(1);
+            except(missions[0].participents).is.deep.contains(globalMission.participents[0]);
+            except(missions[0].startDate).is.gte(globalMission.startDate);                    
+        });
+    });
+
+    
+
 });
