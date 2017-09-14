@@ -1,11 +1,19 @@
 var objectId = require('mongoose').Types.ObjectId;
 
 function userValidity(user) {
-    return objectId.isValid(user) ? user : null;
+    if(objectId.isValid(user)) {
+        return true;
+    } else {
+        throw TypeError("user is not valid");
+    }
 }
 
 function dateValidity(date) {
-    return !isNaN(Date.parse(date)) ? date: new Date();
+    if(isNaN(Date.parse(date))) {
+        throw TypeError("Date is not valid");
+    } else {
+        return true;
+    }
 }
 
 module.exports = {

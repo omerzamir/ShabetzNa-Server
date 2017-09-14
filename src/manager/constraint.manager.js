@@ -3,34 +3,54 @@ var Constraint = require('../models/constraint.model');
 var ConstraintValidation = require('./validations/constraint.validator');
 
 function create(user, date) {
-    var newConstraint = new Constraint({
-        user: ConstraintValidation.userValidity(user),
-        date: ConstraintValidation.dateValidity(date)        
-    });
+    try{
+        ConstraintValidation.userValidity(user);
+        ConstraintValidation.dateValidity(date);
 
-    return newConstraint.save();
+        var newConstraint = new Constraint({
+            user: user,
+            date: date
+        });
+    
+        return newConstraint.save();
+    }
+    catch(ex){
+        return Promise.reject(ex);
+    }
 }
 function getAll() {
     return Constraint.find();
 }
 
 function getByUser(user) {
-    return ConstraintValidation.userValidity(user) ? Constraint.find({user:user}): null;
+    try{
+        ConstraintValidation.userValidity(user);
+        return Constraint.find({user:user});
+    }
+    catch(ex){
+        return Promise.reject(ex);        
+    }
 }
 
 function getByDateRange(fromDate, toDate) {
-    if(ConstraintValidation.dateValidity(fromDate) && 
-       ConstraintValidation.dateValidity(toDate)) {
+    try {
+        ConstraintValidation.dateValidity(fromDate);
+        ConstraintValidation.dateValidity(toDate);
         return Constraint.find({date: {'$gte': fromDate, '$lte': toDate}});
     }
-    return null;
+    catch(ex) {
+        return Promise.resolve(ex);
+    }
 }
 
 function getFromDate(fromDate) {
-    if(ConstraintValidation.dateValidity(fromDate)) {
+    try {
+        ConstraintValidation.dateValidity(fromDate);
         return Constraint.find({date: {'$gte': fromDate}});
     }
-    return null;
+    catch(ex){
+        return Promise.resolve(ex);
+    }
 }
 
 function getByUserDateRange(fromDate, toDate, user) {
@@ -38,14 +58,14 @@ function getByUserDateRange(fromDate, toDate, user) {
        ConstraintValidation.dateValidity(toDate)) {
         return Constraint.find({date: {'$gte': fromDate, '$lte': toDate}, user:user});
     }
-    return null;
+    return Promise.resolve(null);
 }
 
 function getUserFromDate(fromDate, user) {
     if(ConstraintValidation.dateValidity(fromDate)) {
         return Constraint.find({date: {'$gte': fromDate}, user:user});
     }
-    return null;
+    return Promise.resolve(null);
 }
 
 function getById(id) {

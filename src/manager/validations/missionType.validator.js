@@ -1,13 +1,25 @@
 function nameValidator(name){
-    return name ? name : "";
+    if(typeof name === 'string'){
+        return true;
+    } else {
+        throw TypeError("name is not valid");
+    }
 }
 
 function descriptionValidator(description){
-    return description ? description : "";
+    if(typeof description === 'string'){
+        return true;
+    } else {
+        throw TypeError("description is not valid");
+    }
 }
 
-function typeValidator(type){
-    return !isNaN(type) ? type : 0;
+function typeValidator(type) {
+    if(isNaN(type)) {
+        throw TypeError("type is not valid");        
+    } else {
+        return true;
+    }
 }
 
 module.exports = {

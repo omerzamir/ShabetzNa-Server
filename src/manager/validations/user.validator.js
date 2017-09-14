@@ -1,38 +1,36 @@
 var objectId = require('mongoose').Types.ObjectId;
 
 function exemptionsValidity(exemptions){
-
     // Loop through the array and check it's validity.
-    checked = [];
     exemptions.forEach(function(exempt) {
-        if(objectId.isValid(exempt.exempt)){
-            checked.push(exempt);
+        if(!objectId.isValid(exempt.exempt)){
+            throw TypeError("Exemption ID is not valid");
         }  
     }, this);
 
-    return checked;
+    return true;
 }
 
 function specialPermissionsValidity(specialPermissions){
     // Loop through the array and check it's validity.
-    checked = [];
     specialPermissions.forEach(function(permission) {   
-        checked.push(Number(permission));    
+        if(isNaN(permission)) {
+            throw TypeError("Special Permission is not valid")
+        } 
     }, this);
 
-    return checked;
+    return true;
 }
 
 function usersPermissionsValidity(usersPermissions){
     // Loop through the array and check it's validity.
-    checked = [];
     usersPermissions.forEach(function(userPermission) {
-        if(objectId.isValid(userPermission)){
-            checked.push(userPermission);
+        if(!objectId.isValid(userPermission)){
+            throw TypeError("Users Permission is not valid")
         }  
     }, this);
 
-    return checked;
+    return true;
 }
 
 module.exports = {

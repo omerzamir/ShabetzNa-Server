@@ -275,6 +275,31 @@ describe('Mission Manager', () => {
         });
     });
 
-    
+    describe('Update missions Dates', () => {
+        it('Should be exported', () => {
+            except(missionManager.updateDates).to.be.a('function');
+        });
+        it('Should return a promise', () => {
+            let promise = missionManager.updateDates("59b657e6ea1e962270ee9017", globalMission.startDate, globalMission.endDate);
+            except(promise.then).to.be.a('function');
+        });
+
+        it('Should return One missions', async () => {
+            await mongoose.connection.db.dropCollection(collectionName);
+            
+            var mission = await missionManager.create(
+                globalMission.type,
+                globalMission.startDate,
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );                        
+
+            let updated = await missionManager.updateDates(mission._id, new Date(2016, 1, 1), global.endDate);
+                    
+            console.log(updated);
+
+        });
+    });
 
 });

@@ -1,7 +1,11 @@
 var objectId = require('mongoose').Types.ObjectId;
 
 function typeValidity(type) {
-    return objectId.isValid(type) ? type : null;
+    if(objectId.isValid(type)){
+        return true;
+    } else {
+        throw TypeError("type is not valid");
+    }
 }
 
 function dateRangeValidity(startDate, endDate) {
@@ -9,23 +13,30 @@ function dateRangeValidity(startDate, endDate) {
 }
 
 function dateValidity(date) {
-    return !isNaN(Date.parse(date)) ? date: new Date();
+    if(isNaN(Date.parse(date))){
+        throw TypeError("Date is not valid");
+    } else {
+        return true;
+    }
 }
 
 function statusValidity(status) {
-    return !isNaN(status) ? status : 0;
+    if(isNaN(status)){
+        throw TypeError("Status is not valid");
+    } else {
+        return true;
+    }
 }
 
 function participentsValidity(participents) {
-    checked = [];
-
+    // Loop through the array and check it's validity.
     participents.forEach(function(participent) {
-        if(objectId.isValid(participent)) {
-            checked.push(participent);
-        }
+        if(!objectId.isValid(participent)){
+            throw TypeError("participent ID is not valid");
+        }  
     }, this);
 
-    return checked;
+    return true;
 }
 
 module.exports = {

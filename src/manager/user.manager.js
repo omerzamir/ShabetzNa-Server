@@ -3,20 +3,28 @@ var User = require('../models/user.model');
 var UserValidation = require('./validations/user.validator');
 
 function create(username, name, userspermissions, specialpermissions, exemptions) {
+    if (username && name){
+        try{
+            // Exceptions?
+            UserValidation.usersPermissionsValidity(userspermissions)
+            UserValidation.specialPermissionsValidity(specialpermissions)
+            UserValidation.exemptionsValidity(exemptions)
+            
+            var newUser = User({
+                username: username,
+                name: name,
+                userspermissions: userspermissions,
+                specialpermissions: specialpermissions,
+                exemptions: exemptions
+            });
 
-    if (username && name) {
-        var newUser = User({
-            username: username,
-            name: name,
-            userspermissions: UserValidation.usersPermissionsValidity(userspermissions),
-            specialpermissions: UserValidation.specialPermissionsValidity(specialpermissions),
-            exemptions: UserValidation.exemptionsValidity(exemptions)
-        });
-
-        return newUser.save();
+            return newUser.save();
+        }
+        catch(ex) {
+            return Promise.reject(ex);
+        } 
     }
-
-    return null;
+    return Promise.resolve(null);
 }
 
 function getByUserName(username) {
@@ -31,55 +39,84 @@ function getAll() {
 }
 
 function UpdateUserPermissions(username, userspermissions) {
+    try{
+        UserValidation.usersPermissionsValidity(userspermissions);
 
-    return User.update({
-        username: username
-    }, {
-        userspermissions: UserValidation.usersPermissionsValidity(userspermissions)
-    });
+        return User.update({
+            username: username
+        }, {
+            userspermissions: userspermissions
+        });
+    } 
+    catch(ex) {
+        return Promise.reject(ex);
+    }
 }
 
 function UpdateSpecialPermissions(username, specialpermissions) {
+    try{
+        UserValidation.specialPermissionsValidity(specialpermissions);
 
-    return User.update({
-        username: username
-    }, {
-        specialpermissions: UserValidation.specialPermissionsValidity(specialpermissions)
-    });
+        return User.update({
+            username: username
+        }, {
+            specialpermissions: specialpermissions
+        });
+    }
+    catch(ex) {
+        return Promise.reject(ex);
+    }
 }
 
 function UpdateExemptions(username, exemptions) {
-
-    return User.update({
-        username: username
-    }, {
-        exemptions: UserValidation.exemptionsValidity(exemptions)
-    });
+    try {
+        UserValidation.exemptionsValidity(exemptions);
+        return User.update({
+            username: username
+        }, {
+            exemptions: exemptions
+        });
+    }
+    catch(ex) {
+        return Promise.reject(ex);
+    }
 }
 
 async function addUserPermission(username, userToAdd) {
-    var user = await getByUserName(username);
-    if (objectId.isValid(userToAdd)) {
-        user.userspermissions.push(userToAdd);
-        return await user.save();
+    try {
+        var user = await getByUserName(username);
+        if (objectId.isValid(userToAdd)) {
+            user.userspermissions.push(userToAdd);
+            return await user.save();
+        } else {
+            return Promise.reject(TypeError("user Id is not valid"));
+        }
     }
-    return null;
+    catch(ex) {
+        return Promise.reject(ex);
+    }
 }
 
 async function addSpecialPermission(username, specialPermission) {
-    var user = await getByUserName(username);
-
-    user.specialpermissions.push(specialPermission);
-
-    return await user.save();
+    try {
+        var user = await getByUserName(username);
+        user.specialpermissions.push(specialPermission);
+        return await user.save();
+    }
+    catch(ex){
+        return Promise.reject(ex);
+    }
 }
 
 async function addExempt(username, exempt) {
-    var user = await getByUserName(username);
-
-    user.exemptions.push(exempt);
-
-    return await user.save();
+    try {
+        var user = await getByUserName(username);
+        user.exemptions.push(exempt);
+        return await user.save();
+    }
+    catch(ex){
+        return Promise.reject(ex);
+    }
 }
 
 function removeExempt(username, exempt) {

@@ -3,15 +3,23 @@ var missionType = require('../models/missiontype.model');
 var validator = require('./validations/missionType.validator');
 
 function create(name, description, type) {
-    
-    // Creating a Valid missionType object.
-    var newMissionType = missionType({
-        name: validator.nameValidator(name),
-        description: validator.descriptionValidator(description),
-        type: validator.typeValidator(type)
-    });
+    try {
+        validator.nameValidator(name);
+        validator.descriptionValidator(description);
+        validator.typeValidator(type);
 
-    return newMissionType.save();
+        // Creating a Valid missionType object.
+        var newMissionType = missionType({
+            name: name,
+            description: description,
+            type: type
+        });
+
+        return newMissionType.save();
+    }
+    catch(ex) {
+        return Promise.reject(ex);
+    }
 }
 
 function getAll() {
@@ -23,9 +31,14 @@ function getByType(type) {
 }
 
 function getById(id) {
-    var id = objectId.isValid(id) ? objectId(id) : null;
-
-    return missionType.findById(id);
+    try{
+        if(objectId.isValid(id)) 
+            throw TypeError("invalid ID");
+        return missionType.findById(id);
+    }
+    catch(ex){
+        return Promise.reject(ex);
+    }
 }
 
 async function update(id, name, description, type) {
@@ -42,7 +55,7 @@ async function update(id, name, description, type) {
         // Save it & return.
         return missionType.save();
     }
-    return null;
+    return Promise.resolve(null);
 }
 
 function Delete(id){
