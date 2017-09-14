@@ -106,7 +106,7 @@ describe('Mission Manager', () => {
             except(missionManager.getByDateRange).to.be.a('function');
         });
         it('Should return a promise', () => {
-            let promise = missionManager.getByDateRange("","");
+            let promise = missionManager.getByDateRange(globalMission.startDate,globalMission.endDate);
             except(promise.then).to.be.a('function');
         });
 
@@ -121,7 +121,7 @@ describe('Mission Manager', () => {
                 globalMission.status,
                 globalMission.participents
             );
-            await missionManager.create(
+             await missionManager.create(
                 globalMission.type,
                 new Date(2017,1,5),
                 globalMission.endDate,
@@ -129,6 +129,7 @@ describe('Mission Manager', () => {
                 globalMission.participents
             );
 
+            
 
             let missions = await missionManager.getByDateRange(globalMission.startDate,globalMission.endDate);
             except(missions.length).to.equal(1);
@@ -141,7 +142,7 @@ describe('Mission Manager', () => {
             except(missionManager.getFromDate).to.be.a('function');
         });
         it('Should return a promise', () => {
-            let promise = missionManager.getFromDate("");
+            let promise = missionManager.getFromDate(globalMission.startDate);
             except(promise.then).to.be.a('function');
         });
 
@@ -296,11 +297,11 @@ describe('Mission Manager', () => {
                 globalMission.participents
             );                        
 
-            let updated = await missionManager.updateDates(mission._id, new Date(2016, 1, 1), global.endDate);
-                    
-            console.log(updated);
+            let updated = await missionManager.updateDates(mission._id, new Date(2016, 1, 1), new Date(2016,5,5));
 
+            except(updated._id).to.be.eql(mission._id);
+            except(updated.startDate).to.deep.equal(new Date(2016, 1, 1));
+            except(updated.endDate).to.deep.equal(new Date(2016,5,5));
         });
     });
-
 });

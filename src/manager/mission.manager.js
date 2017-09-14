@@ -96,13 +96,14 @@ async function updateDates(id, startDate, endDate) {
         if(MissionValidation.dateRangeValidity(startDate, endDate)){
             // Find the wanted mission.
             var mission = await Mission.findById(id);
-    
-            // If something has changed update it, else put the previous data.
-            mission.startDate = startDate ? startDate : mission.startDate;
-            mission.endDate = endDate ? endDate : mission.endDate;
-            
-            // Save it & return.
-            return await mission.save();
+            if(mission){
+                // If something has changed update it, else put the previous data.
+                mission.startDate = startDate ? new Date(startDate) : new Date(mission.startDate);
+                mission.endDate = endDate ? new Date(endDate) : new Date(mission.endDate);
+
+                // Save it & return.
+                return await mission.save();
+            }
         }
         return Promise.resolve(null);
     }
