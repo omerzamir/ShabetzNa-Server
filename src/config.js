@@ -20,8 +20,4 @@ config.test = {
     dbHost: 'localhost'
 };
 
-function changeDeployment(deployment){
-    config.deployment = deployment;
-}
-
 module.exports = config[config.deployment];

@@ -6,12 +6,13 @@ function createUser(
     username, 
     name, 
     email,
+    job,
     userspermissions, 
     specialpermissions, 
     exemptions
 ) {
     try{
-        return userManager.create(username, name,email, userspermissions, specialpermissions, exemptions);
+        return userManager.create(username, name,email, job, userspermissions, specialpermissions, exemptions);
     } catch(ex){
         throw ex;
     }

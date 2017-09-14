@@ -10,6 +10,10 @@ var userSchema = new Schema({
         type: Schema.Types.String,
         required: true
     },
+    job: {
+        type: Schema.Types.String,
+        required: true
+    },
     email: {
         type: Schema.Types.String,
         required: true

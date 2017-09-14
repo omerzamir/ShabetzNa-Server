@@ -103,7 +103,7 @@ describe('Mission Type Manager', () => {
             except(missionTypeManager.getById).to.be.a('function');
         });
         it('should return a promise', () => {
-            let promise = missionTypeManager.getById("");
+            let promise = missionTypeManager.getById("59b657e6ea1e962270ee9017");
             except(promise.then).to.be.a('function');
         });
 
@@ -129,7 +129,7 @@ describe('Mission Type Manager', () => {
             except(missionTypeManager.update).to.be.a('function');
         });
         it('should return a promise', () => {
-            let promise = missionTypeManager.update("", "", "", 0);
+            let promise = missionTypeManager.update("59b657e6ea1e962270ee9017", "", "", 0);
             except(promise.then).to.be.a('function');
         });
 
@@ -161,7 +161,7 @@ describe('Mission Type Manager', () => {
             except(missionTypeManager.Delete).to.be.a('function');
         });
         it('should return a promise', () => {
-            let promise = missionTypeManager.Delete("");
+            let promise = missionTypeManager.Delete("59b657e6ea1e962270ee9017");
             except(promise.then).to.be.a('function');
         });
 

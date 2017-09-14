@@ -10,6 +10,7 @@ var globalUser = {
     username: "OmerZamir",
     name: "Omer Zamir / תכניתן",
     email:"email@email.com",
+    job:"תפקיד/תפקיד",
     usersPermissions: ["59b657e6ea1e962270ee9017","59b65841ea1e962270ee9018"],
     specialPermissions: [0,1],
     exemptions: [{
@@ -39,6 +40,7 @@ describe('user Manager', () => {
                 globalUser.username,
                 globalUser.name, 
                 globalUser.email,
+                globalUser.job,
                 globalUser.usersPermissions, 
                 globalUser.specialPermissions, 
                 globalUser.exemptions
@@ -51,6 +53,7 @@ describe('user Manager', () => {
                 globalUser.username,
                 globalUser.name, 
                 globalUser.email,
+                globalUser.job,
                 globalUser.usersPermissions,
                 globalUser.specialPermissions,
                 globalUser.exemptions
@@ -76,6 +79,7 @@ describe('user Manager', () => {
                 undefined,
                 undefined, 
                 globalUser.email,
+                globalUser.job,
                 globalUser.usersPermissions, 
                 globalUser.specialPermissions, 
                 globalUser.exemptions
@@ -87,6 +91,7 @@ describe('user Manager', () => {
                 null,
                 null, 
                 globalUser.email,
+                globalUser.job,
                 globalUser.usersPermissions, 
                 globalUser.specialPermissions, 
                 globalUser.exemptions
@@ -114,6 +119,7 @@ describe('user Manager', () => {
                 globalUser.username,
                 globalUser.name, 
                 globalUser.email,
+                globalUser.job,
                 globalUser.usersPermissions, 
                 globalUser.specialPermissions, 
                 globalUser.exemptions
@@ -123,6 +129,7 @@ describe('user Manager', () => {
                 globalUser.username + " 2 ",
                 globalUser.name + " 2 ",
                 globalUser.email,
+                globalUser.job,
                 globalUser.usersPermissions,
                 globalUser.specialPermissions,
                 globalUser.exemptions
@@ -155,6 +162,7 @@ describe('user Manager', () => {
                 globalUser.username,
                 globalUser.name, 
                 globalUser.email,
+                globalUser.job,
                 globalUser.usersPermissions, 
                 globalUser.specialPermissions, 
                 globalUser.exemptions

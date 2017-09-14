@@ -14,7 +14,8 @@ router.post('/', async function(req, res) {
     res.json(await userController.createUser(
         req.body.username, 
         req.body.name, 
-        req.body.email, 
+        req.body.email,
+        req.body.job,        
         req.body.userspermissions,
         req.body.specialpermissions,
         req.body.exemptions

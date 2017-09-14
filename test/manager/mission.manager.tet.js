@@ -26,6 +26,7 @@ describe('Mission Manager', () => {
             "OmerZamir",
             "Omer",
             "email@email.com",
+            "תפקיד/תפקיד",
             ["59b657e6ea1e962270ee9017","59b65841ea1e962270ee9018"],
             [0,1],
             [{
@@ -286,7 +287,7 @@ describe('Mission Manager', () => {
             except(promise.then).to.be.a('function');
         });
 
-        it('Should return One missions', async () => {
+        it('Should return One mission updated', async () => {
             await mongoose.connection.db.dropCollection(collectionName);
             
             var mission = await missionManager.create(
@@ -314,7 +315,7 @@ describe('Mission Manager', () => {
             except(promise.then).to.be.a('function');
         });
 
-        it('Should return One missions', async () => {
+        it('Should return updated missions', async () => {
             await mongoose.connection.db.dropCollection(collectionName);
             
             var mission = await missionManager.create(
@@ -323,12 +324,66 @@ describe('Mission Manager', () => {
                 globalMission.endDate,
                 globalMission.status,
                 globalMission.participents
-            );                        
+            );
 
             let updated = await missionManager.changeStatus(mission._id, 1);
 
             except(updated._id).to.be.eql(mission._id);
             except(updated.status).to.deep.equal(1);
+        });
+    });
+
+    describe('add participent to mission', () => {
+        it('Should be exported', () => {
+            except(missionManager.addParticipent).to.be.a('function');
+        });
+        it('Should return a promise', () => {
+            let promise = missionManager.addParticipent("59b657e6ea1e962270ee9017", "59b65841ea1e962270ee9018");
+            except(promise.then).to.be.a('function');
+        });
+
+        it('Should return updated missions', async () => {
+            await mongoose.connection.db.dropCollection(collectionName);
+            
+            var mission = await missionManager.create(
+                globalMission.type,
+                globalMission.startDate,
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );
+
+            let updated = await missionManager.addParticipent(mission._id, "59b65841ea1e962270ee9018");
+
+            except(updated._id).to.be.eql(mission._id);
+            except(updated.participents.map((e)=>e.toString())).to.be.contains("59b65841ea1e962270ee9018");
+        });
+    });
+
+    describe('Delete a mission', () => {
+        it('Should be exported', () => {
+            except(missionManager.Delete).to.be.a('function');
+        });
+        it('Should return a promise', () => {
+            let promise = missionManager.Delete("59b657e6ea1e962270ee9017");
+            except(promise.then).to.be.a('function');
+        });
+
+        it('Should return updated missions', async () => {
+            await mongoose.connection.db.dropCollection(collectionName);
+            
+            var mission = await missionManager.create(
+                globalMission.type,
+                globalMission.startDate,
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );
+
+            let res = await missionManager.Delete(mission._id);
+
+            except(res.result.ok).to.be.equal(1);
+            except(res.result.n).to.be.equal(1);
         });
     });
 

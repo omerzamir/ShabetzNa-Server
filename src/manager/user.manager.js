@@ -2,18 +2,19 @@ var objectId = require('mongoose').Types.ObjectId;
 var User = require('../models/user.model');
 var UserValidation = require('./validations/user.validator');
 
-function create(username, name, email, usersPermissions, specialPermissions, exemptions) {
+function create(username, name, email, job, usersPermissions, specialPermissions, exemptions) {
     if (username && name){
         try{
             // Exceptions?
-            UserValidation.usersPermissionsValidity(usersPermissions)
-            UserValidation.specialPermissionsValidity(specialPermissions)
-            UserValidation.exemptionsValidity(exemptions)
+            UserValidation.usersPermissionsValidity(usersPermissions);
+            UserValidation.specialPermissionsValidity(specialPermissions);
+            UserValidation.exemptionsValidity(exemptions);
             
             var newUser = User({
                 username: username,
                 name: name,
                 email:email,
+                job:job,
                 usersPermissions: usersPermissions,
                 specialPermissions: specialPermissions,
                 exemptions: exemptions

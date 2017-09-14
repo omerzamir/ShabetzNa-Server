@@ -132,9 +132,9 @@ async function addParticipent(id, participent) {
     var mission = await Mission.findById(id);
     
     if (mission) {
-        try{
+        try {
             MissionValidation.typeValidity(participent);
-            mission.participent.push(MissionValidation.typeValidity(participent));
+            mission.participents.push(participent);
             return mission.save();
         }
         catch(ex){
