@@ -39,7 +39,7 @@ function getByDateRange(fromDate, toDate) {
         return Constraint.find({date: {'$gte': fromDate, '$lte': toDate}});
     }
     catch(ex) {
-        return Promise.resolve(ex);
+        return Promise.reject(ex);
     }
 }
 
@@ -48,34 +48,59 @@ function getFromDate(fromDate) {
         ConstraintValidation.dateValidity(fromDate);
         return Constraint.find({date: {'$gte': fromDate}});
     }
-    catch(ex){
-        return Promise.resolve(ex);
+    catch(ex) {
+        return Promise.reject(ex);
     }
 }
 
 function getByUserDateRange(fromDate, toDate, user) {
-    if(ConstraintValidation.dateValidity(fromDate) && 
-       ConstraintValidation.dateValidity(toDate)) {
+    try {
+        ConstraintValidation.dateValidity(fromDate);
+        ConstraintValidation.dateValidity(toDate);
         return Constraint.find({date: {'$gte': fromDate, '$lte': toDate}, user:user});
     }
-    return Promise.resolve(null);
+    catch(ex) {
+        return Promise.reject(ex);        
+    }
 }
 
 function getUserFromDate(fromDate, user) {
-    if(ConstraintValidation.dateValidity(fromDate)) {
+    try {
+        ConstraintValidation.dateValidity(fromDate);
+
         return Constraint.find({date: {'$gte': fromDate}, user:user});
     }
-    return Promise.resolve(null);
+    catch(ex){
+        return Promise.reject(ex);                
+    }
 }
 
-function getById(id) {
-    return Constraint.find({_id: id});
+async function getById(id) {
+    try {
+        if(objectId.isValid(id)) {
+            return await Constraint.find({_id: id});        }
+        else {
+            throw TypeError("ID is not valid");
+        }
+    } 
+    catch(ex) {
+        return Promise.reject(ex);
+    }
+    
 }
 
 function Delete(id) {
-    var id = objectId.isValid(id) ? objectId(id) : null;
-    
-    return Constraint.remove({_id:id});
+    try {
+        if(objectId.isValid(id)) {
+            return Constraint.remove({_id:id});
+        }
+        else {
+            throw TypeError("ID is not valid");
+        }
+    } 
+    catch(ex) {
+        return Promise.reject(ex);
+    }
 }
 
 // There is no need for update for this model
