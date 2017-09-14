@@ -10,67 +10,122 @@ function createUser(
     specialpermissions, 
     exemptions
 ) {
-    var val;
     try{
-    val = userManager.create(username, name,email, userspermissions, specialpermissions, exemptions);
-    } catch(e){
-        val = e;
-        console.log(e);
+        return userManager.create(username, name,email, userspermissions, specialpermissions, exemptions);
+    } catch(ex){
+        throw ex;
     }
-    return val;
 }
 
 function getUserByUsername(username) {
-    return userManager.getByUserName(username);
+    try{
+        return userManager.getByUserName(username); 
+    }
+    catch(ex){
+        throw ex;
+    }
 }
 
 function getAllUsers() {
-    return userManager.getAll();
+    try {
+        return userManager.getAll();
+    }
+    catch(ex){
+        throw ex;
+    }
 }
 
 function updateAllUserPermission(username, userspermissions) {
-    return userManager.UpdateUserPermissions(username, userspermissions);
+    try {
+        return userManager.UpdateUserPermissions(username, userspermissions);
+    }
+    catch(ex){
+        throw ex;
+    }
 }
 
 function updateAllSpecialPermissions(username, specialpermissions) {
-    return userManager.UpdateSpecialPermissions(username, specialpermissions);
+    try {
+        return userManager.UpdateSpecialPermissions(username, specialpermissions);
+    }
+    catch(ex){
+        throw ex;
+    }
 }
 
 function updateAllExemptions(username, exemptions) {
-    return userManager.UpdateExemptions(username, exemptions);
+    try {
+        return userManager.UpdateExemptions(username, exemptions);
+    }
+    catch(ex){
+        throw ex;
+    }
 }
 
-function addUserPermission(username, usernameToAddName) {
-    
-    var userToAdd = getUserByUsername(usernameToAddName);
+async function addUserPermission(username, usernameToAddName) {
+    try {
+        var userToAdd = await getUserByUsername(usernameToAddName);
 
-    return userManager.addUserPermission(username, userToAdd._id);
+        return userManager.addUserPermission(username, userToAdd._id);
+    }
+    catch(ex){
+        throw ex;
+    }
 }
 
 function addSpecialPermission(username, specialPermission) {
-    return userManager.addSpecialPermission(username, specialPermission);
+    try {
+        return userManager.addSpecialPermission(username, specialPermission);
+    }
+    catch(ex){
+        throw ex;
+    }
 }
 
 function addExemption(username, exemption) {
-    return userManager.addExempt(username, exemption);
+    try {
+        return userManager.addExempt(username, exemption);
+    }
+    catch(ex){
+        throw ex;
+    }
 }
 
 function DeleteUser(username) {
-    return userManager.Delete(username);
+    try {
+        return userManager.Delete(username);
+    }    
+    catch(ex){
+        throw ex;
+    }
 }
 
 function removeOneExempt(username, exempt) {
-    return userManager.removeExempt(username, exempt);
+    try {
+        return userManager.removeExempt(username, exempt);
+    }
+    catch(ex){
+        throw ex;
+    }
 }
 
 function removeOneSpecialPermission(username, specialPermission) {
-    return userManager.removespecialPermission(username, specialPermission);
+    try {
+        return userManager.removespecialPermission(username, specialPermission);
+    }
+    catch(ex){
+        throw ex;
+    }
 }
 
-function removeOneUserPermission(username, usernameToRemove){
-    var userToRemove = getUserByUsername(usernameToRemove);
-
-    return userManager.removeUserPermission(username, userToRemove._id);
+async function removeOneUserPermission(username, usernameToRemove){
+    try {
+        var userToRemove = await getUserByUsername(usernameToRemove);
+        return userManager.removeUserPermission(username, userToRemove._id);  
+    }
+    catch(ex){
+        throw ex;
+    }
 }
 
 module.exports = {

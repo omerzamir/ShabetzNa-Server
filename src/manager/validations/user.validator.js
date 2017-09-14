@@ -15,7 +15,8 @@ function specialPermissionsValidity(specialPermissions){
     // Loop through the array and check it's validity.
     specialPermissions.forEach(function(permission) {   
         if(isNaN(permission)) {
-            throw TypeError("Special Permission is not valid")
+            console.log(permission, isNaN(permission));
+            throw TypeError("Special Permission is not valid");
         } 
     }, this);
 
@@ -26,7 +27,7 @@ function usersPermissionsValidity(usersPermissions){
     // Loop through the array and check it's validity.
     usersPermissions.forEach(function(userPermission) {
         if(!objectId.isValid(userPermission)){
-            throw TypeError("Users Permission is not valid")
+            throw TypeError("Users Permission is not valid");
         }  
     }, this);
 

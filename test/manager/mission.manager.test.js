@@ -25,6 +25,7 @@ describe('Mission Manager', () => {
         globalMission.participents.push((await userManager.create(
             "OmerZamir",
             "Omer",
+            "email@email.com",
             ["59b657e6ea1e962270ee9017","59b65841ea1e962270ee9018"],
             [0,1],
             [{

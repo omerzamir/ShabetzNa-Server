@@ -2,20 +2,20 @@ var objectId = require('mongoose').Types.ObjectId;
 var User = require('../models/user.model');
 var UserValidation = require('./validations/user.validator');
 
-function create(username, name, email, userspermissions, specialpermissions, exemptions) {
+function create(username, name, email, usersPermissions, specialPermissions, exemptions) {
     if (username && name){
         try{
             // Exceptions?
-            UserValidation.usersPermissionsValidity(userspermissions)
-            UserValidation.specialPermissionsValidity(specialpermissions)
+            UserValidation.usersPermissionsValidity(usersPermissions)
+            UserValidation.specialPermissionsValidity(specialPermissions)
             UserValidation.exemptionsValidity(exemptions)
             
             var newUser = User({
                 username: username,
                 name: name,
                 email:email,
-                usersPermissions: userspermissions,
-                specialPermissions: specialpermissions,
+                usersPermissions: usersPermissions,
+                specialPermissions: specialPermissions,
                 exemptions: exemptions
             });
 
@@ -39,14 +39,14 @@ function getAll() {
     return User.find();
 }
 
-function UpdateUserPermissions(username, userspermissions) {
+function UpdateUserPermissions(username, usersPermissions) {
     try{
-        UserValidation.usersPermissionsValidity(userspermissions);
+        UserValidation.usersPermissionsValidity(usersPermissions);
 
         return User.update({
             username: username
         }, {
-            userspermissions: userspermissions
+            usersPermissions: usersPermissions
         });
     } 
     catch(ex) {
@@ -54,14 +54,14 @@ function UpdateUserPermissions(username, userspermissions) {
     }
 }
 
-function UpdateSpecialPermissions(username, specialpermissions) {
+function UpdatespecialPermissions(username, specialPermissions) {
     try{
-        UserValidation.specialPermissionsValidity(specialpermissions);
+        UserValidation.specialPermissionsValidity(specialPermissions);
 
         return User.update({
             username: username
         }, {
-            specialpermissions: specialpermissions
+            specialPermissions: specialPermissions
         });
     }
     catch(ex) {
@@ -87,7 +87,7 @@ async function addUserPermission(username, userToAdd) {
     try {
         var user = await getByUserName(username);
         if (objectId.isValid(userToAdd)) {
-            user.userspermissions.push(userToAdd);
+            user.usersPermissions.push(userToAdd);
             return await user.save();
         } else {
             return Promise.reject(TypeError("user Id is not valid"));
@@ -101,7 +101,7 @@ async function addUserPermission(username, userToAdd) {
 async function addSpecialPermission(username, specialPermission) {
     try {
         var user = await getByUserName(username);
-        user.specialpermissions.push(specialPermission);
+        user.specialPermissions.push(specialPermission);
         return await user.save();
     }
     catch(ex){
@@ -137,7 +137,7 @@ function removespecialPermission(username, specialPermission) {
         username: username
     }, {
         $pull: {
-            specialpermissions: {
+            specialPermissions: {
                 '$in': [specialPermission]
             }
         }
@@ -149,7 +149,7 @@ function removeUserPermission(username, userPermission) {
         username: username
     }, {
         $pull: {
-            userspermissions: {
+            usersPermissions: {
                 '$in': [userPermission]
             }
         }
@@ -167,7 +167,7 @@ module.exports = {
     getByUserName,
     getAll,
     UpdateUserPermissions,
-    UpdateSpecialPermissions,
+    UpdatespecialPermissions,
     UpdateExemptions,
     addUserPermission,
     addSpecialPermission,

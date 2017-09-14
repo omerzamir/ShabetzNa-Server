@@ -33,8 +33,8 @@ function getByType(type) {
 function getById(id) {
     try{
         if(objectId.isValid(id)) 
-            throw TypeError("invalid ID");
-        return missionType.findById(id);
+            return missionType.findById(id);
+        throw TypeError("invalid ID");
     }
     catch(ex){
         return Promise.reject(ex);

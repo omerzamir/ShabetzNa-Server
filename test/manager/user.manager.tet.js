@@ -9,15 +9,16 @@ var collectionName = 'users';
 var globalUser = {
     username: "OmerZamir",
     name: "Omer Zamir / תכניתן",
-    userspermissions: ["59b657e6ea1e962270ee9017","59b65841ea1e962270ee9018"],
-    specialpermissions: [0,1],
+    email:"email@email.com",
+    usersPermissions: ["59b657e6ea1e962270ee9017","59b65841ea1e962270ee9018"],
+    specialPermissions: [0,1],
     exemptions: [{
         exempt:"59b66e82c9e80b12b17182be",
         description: "some test description"
     }]
 };
-var replacedUsersPermissions = ["59b657e6ea1e962270ee9017", "59b65841ea1e962270ee9018", "59b7962636a244187d128e8a"];
-var replacedSpecialPermissions = [0,1,2];
+var replacedusersPermissions = ["59b657e6ea1e962270ee9017", "59b65841ea1e962270ee9018", "59b7962636a244187d128e8a"];
+var replacedspecialPermissions = [0,1,2];
 var replacedExemptions = [{
     exempt:"59b66e82c9e80b12b17182be",
     description: "some test description replaced"
@@ -37,8 +38,9 @@ describe('user Manager', () => {
             let promise = userManager.create(
                 globalUser.username,
                 globalUser.name, 
-                globalUser.userspermissions, 
-                globalUser.specialpermissions, 
+                globalUser.email,
+                globalUser.usersPermissions, 
+                globalUser.specialPermissions, 
                 globalUser.exemptions
             );
             except(promise.then).to.be.a('function');
@@ -48,15 +50,16 @@ describe('user Manager', () => {
             let user = await userManager.create(
                 globalUser.username,
                 globalUser.name, 
-                globalUser.userspermissions,
-                globalUser.specialpermissions,
+                globalUser.email,
+                globalUser.usersPermissions,
+                globalUser.specialPermissions,
                 globalUser.exemptions
             );
 
             except(user.username).to.be.equal(globalUser.username);
             except(user.name).to.be.equal(globalUser.name);
-            except(user.userspermissions.map((id)=>id.toString())).to.be.eql(globalUser.userspermissions);
-            except(user.specialpermissions).to.deep.equal(globalUser.specialpermissions);
+            except(user.usersPermissions.map((id)=>id.toString())).to.be.eql(globalUser.usersPermissions);
+            except(user.specialPermissions).to.deep.equal(globalUser.specialPermissions);
             let exemtions = user.exemptions.map( (e) => {
                 return {
                     exempt: e.exempt.toString(),
@@ -72,8 +75,9 @@ describe('user Manager', () => {
             let userUndefined = await userManager.create(
                 undefined,
                 undefined, 
-                globalUser.userspermissions, 
-                globalUser.specialpermissions, 
+                globalUser.email,
+                globalUser.usersPermissions, 
+                globalUser.specialPermissions, 
                 globalUser.exemptions
             );
             except(userUndefined).to.be.null;
@@ -82,8 +86,9 @@ describe('user Manager', () => {
             let userNull = await userManager.create(
                 null,
                 null, 
-                globalUser.userspermissions, 
-                globalUser.specialpermissions, 
+                globalUser.email,
+                globalUser.usersPermissions, 
+                globalUser.specialPermissions, 
                 globalUser.exemptions
             );
             except(userNull).to.be.null;
@@ -108,16 +113,18 @@ describe('user Manager', () => {
             await userManager.create(
                 globalUser.username,
                 globalUser.name, 
-                globalUser.userspermissions, 
-                globalUser.specialpermissions, 
+                globalUser.email,
+                globalUser.usersPermissions, 
+                globalUser.specialPermissions, 
                 globalUser.exemptions
             );
 
             await userManager.create(
                 globalUser.username + " 2 ",
                 globalUser.name + " 2 ",
-                globalUser.userspermissions,
-                globalUser.specialpermissions,
+                globalUser.email,
+                globalUser.usersPermissions,
+                globalUser.specialPermissions,
                 globalUser.exemptions
             );
 
@@ -147,8 +154,9 @@ describe('user Manager', () => {
             await userManager.create(
                 globalUser.username,
                 globalUser.name, 
-                globalUser.userspermissions, 
-                globalUser.specialpermissions, 
+                globalUser.email,
+                globalUser.usersPermissions, 
+                globalUser.specialPermissions, 
                 globalUser.exemptions
             );
 
@@ -166,13 +174,13 @@ describe('user Manager', () => {
         });
 
         it('Should return a promise', () => {
-            let promise = userManager.UpdateUserPermissions(globalUser.username, replacedUsersPermissions);
+            let promise = userManager.UpdateUserPermissions(globalUser.username, replacedusersPermissions);
             except(promise.then).to.be.a('function');
         });
 
         it('Should return expected values if updated', async () => {
 
-            let updated = await userManager.UpdateUserPermissions(globalUser.username, replacedUsersPermissions);
+            let updated = await userManager.UpdateUserPermissions(globalUser.username, replacedusersPermissions);
             except(updated.ok).to.be.equal(1);
             except(updated.n).to.be.equal(1);
             except(updated.nModified).to.be.equal(1);
@@ -183,17 +191,17 @@ describe('user Manager', () => {
     describe('Update specialPermission', () => {
 
         it('Should be exported', () => {
-            except(userManager.UpdateSpecialPermissions).to.be.a('function');
+            except(userManager.UpdatespecialPermissions).to.be.a('function');
         });
 
         it('Should return a promise', () => {
-            let promise = userManager.UpdateSpecialPermissions(globalUser.username, replacedSpecialPermissions);
+            let promise = userManager.UpdatespecialPermissions(globalUser.username, replacedspecialPermissions);
             except(promise.then).to.be.a('function');
         });
 
         it('Should return expected values if updated', async () => {
 
-            let updated = await userManager.UpdateSpecialPermissions(globalUser.username, replacedSpecialPermissions);
+            let updated = await userManager.UpdatespecialPermissions(globalUser.username, replacedspecialPermissions);
             except(updated.ok).to.be.equal(1);
             except(updated.n).to.be.equal(1);
             except(updated.nModified).to.be.equal(1);
@@ -203,7 +211,7 @@ describe('user Manager', () => {
     describe('Update Exemtions', () => {
         
         it('Should be exported', () => {
-            except(userManager.UpdateSpecialPermissions).to.be.a('function');
+            except(userManager.UpdatespecialPermissions).to.be.a('function');
         });
 
         it('Should return a promise', () => {
@@ -237,7 +245,7 @@ describe('user Manager', () => {
         });
         it('Should return expected values if updated', async () => {  
             let updated = await userManager.addUserPermission(globalUser.username, id);
-            except(updated.userspermissions).to.deep.include(id);
+            except(updated.usersPermissions).to.deep.include(id);
         });
     });
 
@@ -253,7 +261,7 @@ describe('user Manager', () => {
         });
         it('Should return expected values if updated', async () => {  
             let updated = await userManager.addSpecialPermission(globalUser.username, 0);
-            except(updated.specialpermissions).to.deep.include(0);
+            except(updated.specialPermissions).to.deep.include(0);
         });
     });
 
