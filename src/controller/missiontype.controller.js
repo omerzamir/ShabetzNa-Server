@@ -1,27 +1,51 @@
 var missionTypeManager = require('../manager/missiontype.manager');
 
-function createMissionType(name, description, type){
-    return missionTypeManager.create(name, description, type);
+function createMissionType(name, description, type) {
+    try {
+        return missionTypeManager.create(name, description, type);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function getAllMissionTypes() {
-    return missionTypeManager.getAll();
+    try {
+        return missionTypeManager.getAll();
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function getMissionTypesByType(type) {
-    return missionTypeManager.getByType(type);    
+    try {
+        return missionTypeManager.getByType(type);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function getMissionTypeById(id) {
-    return missionTypeManager.getById(id);        
+    try {
+        return missionTypeManager.getById(id);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function updateMissionType(id, name, description, type) {
-    return missionTypeManager.update(id, name, description, type);            
+    try {
+        return missionTypeManager.update(id, name, description, type);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function DeleteMissionTypeById(id) {
-    return missionTypeManager.Delete(id);            
+    try {
+        return missionTypeManager.Delete(id);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 module.exports = {

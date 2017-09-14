@@ -1,60 +1,106 @@
 var missionManager = require('../manager/mission.manager');
 var userController = require('./user.controller');
 
-function CreateMission(type, startDate, endDate, status, participents) {
-    var participentsId = [];
+async function CreateMission(type, startDate, endDate, status, participents) {
+    try {
+        var participentsId = [];
 
-    participents.forEach(function(participent) {
-        participentsId.push(userController.getUserByUsername(participent)._id);
-    }, this);
-    
-    return missionManager.create(type, startDate, endDate, status, sendParticipents);
+        participents.forEach(function (participent) {
+            participentsId.push((await userController.getUserByUsername(participent))._id);
+        }, this);
+
+        return missionManager.create(type, startDate, endDate, status, sendParticipents);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function getAllMissions() {
-    return missionManager.getAll();
+    try {
+        return missionManager.getAll();
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function getMissionByDateRange(fromDate, toDate) {
-    return missionManager.getByDateRange(fromDate, toDate);
+    try {
+        return missionManager.getByDateRange(fromDate, toDate);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function getMissionByFromDate(date) {
-    return missionManager.getFromDate(date);
+    try {
+        return missionManager.getFromDate(date);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
-function getUserMissions(user) {
-    var userId = userController.getUserByUsername(user)._id;
+async function getUserMissions(user) {
+    try {
+        var userId = await userController.getUserByUsername(user)._id;
 
-    return missionManager.getByUser(userId);
+        return missionManager.getByUser(userId);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
-function getUserMissionsByDateRange(user, fromDate, toDate) {
-    var userId = userController.getUserByUsername(user)._id;
+async function getUserMissionsByDateRange(user, fromDate, toDate) {
+    try {
+        var userId = await userController.getUserByUsername(user)._id;
 
-    return missionManager.getByUserDateRange(userId, fromDate, toDate);
+        return missionManager.getByUserDateRange(userId, fromDate, toDate);
+    } catch (ex) {
+        throw ex;
+    }
+
 }
 
-function getUserMissionsFromDate(user, fromDate) {
-    var userId = userController.getUserByUsername(user)._id;
+async function getUserMissionsFromDate(user, fromDate) {
+    try {
+        var userId = await userController.getUserByUsername(user)._id;
 
-    return missionManager.getByUserFromDate(userId, fromDate);
+        return missionManager.getByUserFromDate(userId, fromDate);
+    } catch (ex) {
+        throw ex;
+    }
+
 }
 
 function ChangeMissionDates(id, startDate, endDate) {
-    return missionManager.updateDates(id, startDate, endDate);
+    try {
+        return missionManager.updateDates(id, startDate, endDate);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function ChangeMissionStatus(id, status) {
-    return missionManager.changeStatus(id, status);
+    try {
+        return missionManager.changeStatus(id, status);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
-function AddParticipentToMission(id, participent) {
-    return missionManager.addParticipent(id,userController.getUserByUsername(participent)._id);
+async function AddParticipentToMission(id, participent) {
+    try {
+        return missionManager.addParticipent(id, (await userController.getUserByUsername(participent))._id);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function DeleteMission(mission) {
-    return missionManager.Delete(mission);
+    try {
+        return missionManager.Delete(mission);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 module.exports = {

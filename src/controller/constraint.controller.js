@@ -1,48 +1,85 @@
 var constraintManager = require('../manager/constraint.manager');
 var userController = require('./user.controller');
 
-function createConstraint(user, date) {
-    var userId = userController.getUserByUsername(user)._id;
+async function createConstraint(user, date) {
+    try {
+        var userId = await userController.getUserByUsername(user)._id;
 
-    return constraintManager.create(userId, date);
+        return constraintManager.create(userId, date);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function getAllConstraints() {
-    return constraintManager.getAll();
+    try {
+        return constraintManager.getAll();
+    } catch (ex) {
+        throw ex;
+    }
 }
 
-function getUserConstraints(user) {
-    var userId = userController.getUserByUsername(user)._id;
-    
-    return constraintManager.getByUser(userId);
+async function getUserConstraints(user) {
+    try {
+        var userId = await userController.getUserByUsername(user)._id;
+
+        return constraintManager.getByUser(userId);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function getConstraintsByDateRange(fromDate, toDate) {
-    return constraintManager.getByDateRange(fromDate, toDate);
+    try {
+        return constraintManager.getByDateRange(fromDate, toDate);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function getConstraintsFromDate(fromDate) {
-    return constraintManager.getFromDate(fromDate);
+    try {
+        return constraintManager.getFromDate(fromDate);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
-function getUserConstraintsByDateRange(user, fromDate, toDate) {
-    var userId = userController.getUserByUsername(user)._id;
+async function getUserConstraintsByDateRange(user, fromDate, toDate) {
+    try {
+        var userId = await userController.getUserByUsername(user)._id;
 
-    return constraintManager.getByUserDateRange(fromDate, toDate, userId);
+        return constraintManager.getByUserDateRange(fromDate, toDate, userId);
+    } catch (ex) {
+        throw ex;
+    }
+
 }
 
-function getUserConstraintsFromDate(user, fromDate) {
-    var userId = userController.getUserByUsername(user)._id;
+async function getUserConstraintsFromDate(user, fromDate) {
+    try {
+        var userId = await userController.getUserByUsername(user)._id;
 
-    return constraintManager.getUserFromDate(fromDate, userId);
+        return constraintManager.getUserFromDate(fromDate, userId);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function getConstraintById(id) {
-    return constraintManager.getById(id);
+    try {
+        return constraintManager.getById(id);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 function DeleteConstraint(id) {
-    return constraintManager.Delete(id);
+    try {
+        return constraintManager.Delete(id);
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 module.exports = {
