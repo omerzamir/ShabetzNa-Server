@@ -5,13 +5,14 @@ var User = require('../models/user.model');
 function createUser(
     username, 
     name, 
+    email,
     userspermissions, 
     specialpermissions, 
     exemptions
 ) {
     var val;
     try{
-    val = userManager.create(username, name, userspermissions, specialpermissions, exemptions);
+    val = userManager.create(username, name,email, userspermissions, specialpermissions, exemptions);
     } catch(e){
         val = e;
         console.log(e);

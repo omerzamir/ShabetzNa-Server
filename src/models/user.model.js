@@ -4,19 +4,23 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
     username: {
         type: Schema.Types.String,
-        default: ""
+        required: true
     },
     name: {
         type: Schema.Types.String,
-        default: ""
+        required: true
     },
-    userspermissions: {
+    email: {
+        type: Schema.Types.String,
+        required: true
+    },
+    usersPermissions: {
         type: [{
             type: Schema.Types.ObjectId,
             ref: 'User'
         }], default: []
     },
-    specialpermissions: {
+    specialPermissions: {
         type: [Schema.Types.Number],
         default:[]
     },

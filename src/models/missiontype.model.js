@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var missionTypeSchema = new Schema({
     name: {
         type: Schema.Types.String,
-        default: ""
+        required: true
     },
     description: {
         type: Schema.Types.String,
@@ -12,7 +12,7 @@ var missionTypeSchema = new Schema({
     },
     type: {
         type:Schema.Types.Number,
-        default: 0
+        required: true
     }
 });
 

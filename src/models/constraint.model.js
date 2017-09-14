@@ -4,11 +4,12 @@ var Schema = mongoose.Schema;
 var constraintSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId, 
-        ref:'User'
+        ref:'User',
+        required: true
     },
     date: {
         type: Schema.Types.Date,
-        default: () => +new Date + 30*24*60*60*1000
+        required: true
     }
 });
 

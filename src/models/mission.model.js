@@ -4,26 +4,29 @@ var Schema = mongoose.Schema;
 var missionSchema = new Schema({
     type:{
         type: Schema.Types.ObjectId, 
-        ref:'MissionType'
+        ref:'MissionType',
+        required: true
     },
     startDate: {
         type: Schema.Types.Date,
-        default: () => +new Date + 30*24*60*60*1000
+        required: true
     },
     endDate: {
         type: Schema.Types.Date,
-        default: () => +new Date + 30*24*60*60*1000
+        required: true
     },
     status: {
         type: Schema.Types.Number,
-        default: 0
+        default: 0,
+        required: true
     },
     participents: {
         type: [{
             type: Schema.Types.ObjectId, 
             ref:'User'
         }],
-        default: []
+        default: [],
+        required: true
     }
 });
 
