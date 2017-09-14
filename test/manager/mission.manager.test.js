@@ -18,6 +18,7 @@ var globalMission = {
 
 describe('Mission Manager', () => {
     before(async function(){
+        mongoose.Promise = global.Promise;
         await mongoose.connect('mongodb://' + config.dbHost + '/' + config.dbName, {useMongoClient: true });
         await mongoose.connection.db.dropDatabase(config.dbName);
 
@@ -52,7 +53,7 @@ describe('Mission Manager', () => {
         });
 
         it('should return a missionType with the inserted values', async () => {
-            let missionType = await missionManager.create(
+            let mission = await missionManager.create(
                 globalMission.type,
                 globalMission.startDate,
                 globalMission.endDate,
@@ -60,9 +61,9 @@ describe('Mission Manager', () => {
                 globalMission.participents
             );
 
-            except(globalMission.name).to.be.equal(missionType.name);
-            except(globalMission.description).to.be.equal(missionType.description);
-            except(globalMission.type).to.be.equal(missionType.type);            
+            except(globalMission.name).to.be.equal(mission.name);
+            except(globalMission.description).to.be.equal(mission.description);
+            except(globalMission.type).to.be.equal(mission.type);            
         });
     });
 

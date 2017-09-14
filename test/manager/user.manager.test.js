@@ -27,6 +27,7 @@ var replacedExemptions = [{
 
 describe('user Manager', () => {
     before(async function(){
+        mongoose.Promise = global.Promise;
         await mongoose.connect('mongodb://' + config.dbHost + '/' + config.dbName, {useMongoClient: true });
         await mongoose.connection.db.dropDatabase(config.dbName);
     });

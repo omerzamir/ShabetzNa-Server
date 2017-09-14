@@ -7,8 +7,11 @@ var bodyParser = require('body-parser');
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
+
+
 apiRouter(server);
 
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://' + config.dbHost + '/' + config.dbName, {useMongoClient: true});
 
 server.listen(config.port, function() {

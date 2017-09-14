@@ -78,7 +78,8 @@ function getUserFromDate(fromDate, user) {
 async function getById(id) {
     try {
         if(objectId.isValid(id)) {
-            return await Constraint.find({_id: id});        }
+            return await Constraint.find({_id: id});
+        }
         else {
             throw TypeError("ID is not valid");
         }
