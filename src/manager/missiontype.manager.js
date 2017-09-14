@@ -59,9 +59,17 @@ async function update(id, name, description, type) {
 }
 
 function Delete(id){
-    var id = objectId.isValid(id) ? objectId(id) : null;
-    
-    return missionType.remove({_id:id});
+    try {
+        if(objectId.isValid(id)) {
+            return missionType.remove({_id:id});
+        }
+        else {
+            throw TypeError("ID is not valid");
+        }
+    } 
+    catch(ex) {
+        return Promise.reject(ex);
+    }    
 }
 
 module.exports = {

@@ -112,26 +112,50 @@ async function updateDates(id, startDate, endDate) {
     }
 }
 
-function changeStatus(id, status){
-    var mission = Mission.findById(id);
+async function changeStatus(id, status){
+    var mission = await Mission.findById(id);
 
-    mission.status = MissionValidation.statusValidity(status);
-
-    return mission.save();
+    if (mission) {
+        try{
+            MissionValidation.statusValidity(status);
+            mission.status = status;
+            return mission.save();
+        }
+        catch(ex){
+            return Promise.reject(ex);
+        }
+    }
+    return Promise.resolve(null);
 }
 
-function addParticipent(id, participent) {
-    var mission = Mission.findById(id);
-
-    mission.participent.push(MissionValidation.typeValidity(participent));
-
-    return mission.save();
+async function addParticipent(id, participent) {
+    var mission = await Mission.findById(id);
+    
+    if (mission) {
+        try{
+            MissionValidation.typeValidity(participent);
+            mission.participent.push(MissionValidation.typeValidity(participent));
+            return mission.save();
+        }
+        catch(ex){
+            return Promise.reject(ex);
+        }
+    }
+    return Promise.resolve(null);
 }
 
 function Delete(id) {
-    var id = objectId.isValid(id) ? objectId(id) : null;
-    
-    return Mission.remove({_id:id});
+    try {
+        if(objectId.isValid(id)) {
+            return Mission.remove({_id:id});
+        }
+        else {
+            throw TypeError("ID is not valid");
+        }
+    } 
+    catch(ex) {
+        return Promise.reject(ex);
+    }
 }
 
 module.exports = {

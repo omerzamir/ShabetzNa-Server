@@ -304,4 +304,32 @@ describe('Mission Manager', () => {
             except(updated.endDate).to.deep.equal(new Date(2016,5,5));
         });
     });
+
+    describe('Change mission Status', () => {
+        it('Should be exported', () => {
+            except(missionManager.changeStatus).to.be.a('function');
+        });
+        it('Should return a promise', () => {
+            let promise = missionManager.changeStatus("59b657e6ea1e962270ee9017", 1);
+            except(promise.then).to.be.a('function');
+        });
+
+        it('Should return One missions', async () => {
+            await mongoose.connection.db.dropCollection(collectionName);
+            
+            var mission = await missionManager.create(
+                globalMission.type,
+                globalMission.startDate,
+                globalMission.endDate,
+                globalMission.status,
+                globalMission.participents
+            );                        
+
+            let updated = await missionManager.changeStatus(mission._id, 1);
+
+            except(updated._id).to.be.eql(mission._id);
+            except(updated.status).to.deep.equal(1);
+        });
+    });
+
 });
