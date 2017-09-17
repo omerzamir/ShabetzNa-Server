@@ -1,2 +1,2 @@
-# ShabetzNa
-shabetz na
+# ShabetzNa - Server
+shabetz na - Server
