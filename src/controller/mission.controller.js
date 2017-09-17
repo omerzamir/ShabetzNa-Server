@@ -5,7 +5,7 @@ async function CreateMission(type, startDate, endDate, status, participents) {
     try {
         var participentsId = [];
 
-        participents.forEach(function (participent) {
+        participents.forEach(async function (participent) {
             participentsId.push((await userController.getUserByUsername(participent))._id);
         }, this);
 
