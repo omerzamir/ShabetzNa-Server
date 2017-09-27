@@ -3,10 +3,12 @@ var config = require('./config');
 var mongoose = require('mongoose');
 var apiRouter = require('./router');
 var bodyParser = require('body-parser');
+var cors = require('cors');
+
+server.use(cors());
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
-
 
 
 apiRouter(server);

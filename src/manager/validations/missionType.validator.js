@@ -1,5 +1,5 @@
 function nameValidator(name){
-    if(typeof name === 'string'){
+    if((typeof name) === 'string'){
         return true;
     } else {
         throw TypeError("name is not valid");
