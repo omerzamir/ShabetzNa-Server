@@ -8,7 +8,7 @@ job('ShabetzNa-Unit-Testing') {
         scm('*/5 * * * *')
     }
     steps {
-        shell('cd /var/lib/jenkins/workspace/ShabetzNa')
+        shell('cd /var/lib/jenkins/workspace/ShabetzNa-Unit-Testing')
         shell('npm install')
         shell('npm test')
     }
