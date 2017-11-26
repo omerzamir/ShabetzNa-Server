@@ -16,7 +16,6 @@ function specialPermissionsValidity(specialPermissions) {
         // Loop through the array and check it's validity.
         specialPermissions.forEach(function (permission) {
             if (isNaN(permission)) {
-                console.log(permission, isNaN(permission));
                 throw TypeError("Special Permission is not valid");
             }
         }, this);
