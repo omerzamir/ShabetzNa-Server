@@ -20,6 +20,7 @@ router.post('/', async function (req, res) {
             req.body.participents
         );
         res.json(resp);
+        console.log(resp);
     } catch (ex) {
         res.status(400).send(ex.toString());
     }

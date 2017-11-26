@@ -16,6 +16,6 @@ apiRouter(server);
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://' + config.dbHost + '/' + config.dbName, {useMongoClient: true});
 
-server.listen(config.port, function() {
+server.listen(config.port, "0.0.0.0",function() {
     console.log(`Server running on port ${config.port}`)
 });
