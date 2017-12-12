@@ -11,8 +11,14 @@ router.get('/IsAlive', function(req, res){
 });
 
 router.get('/adfs', function(req, res){
-    res.set('Content-Type', 'application/samlmetadata+xml').send(
-        fs.readFileSync('./adfs.xml'));
+    try{
+        res.set('Content-Type', 'application/samlmetadata+xml').send(
+            fs.readFileSync(__dirname + '/public/adfs.xml'));    
+    }
+    catch(ex) {
+        res.status(400).send(ex.toString())
+    }
+    
 });
 
 module.exports = (server) => {

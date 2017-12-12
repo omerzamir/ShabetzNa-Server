@@ -1,4 +1,5 @@
 var server = require('express')();
+var static = require('express').static;
 var config = require('./config');
 var mongoose = require('mongoose');
 var apiRouter = require('./router');
@@ -10,7 +11,7 @@ server.use(cors());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
-
+server.use('/', static(__dirname + '/public'));
 apiRouter(server);
 
 mongoose.Promise = global.Promise;
