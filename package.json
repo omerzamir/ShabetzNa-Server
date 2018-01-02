@@ -29,9 +29,11 @@
     "express-session": "1.15.6",
     "fs": "0.0.1-security",
     "identicon.js": "2.3.1",
+    "jsonwebtoken": "8.1.0",
     "mongoose": "4.11.10",
     "node-mailer": "0.1.1",
     "passport": "0.4.0",
+    "passport-jwt": "3.0.1",
     "passport-saml": "0.15.0",
     "passport-saml-metadata": "1.2.1",
     "passport-wsfed-saml2": "3.0.5"
